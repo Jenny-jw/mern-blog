@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}

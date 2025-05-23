@@ -12,3 +12,9 @@
   display: flex;
   align-items: center;
 }
+
+.navbar-full {
+  margin: 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}

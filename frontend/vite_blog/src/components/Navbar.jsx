@@ -19,7 +19,7 @@ const Navbar = () => {
   }, [darkMode]);
 
   return (
-    <div className="navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold relative bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText">
+    <div className="navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold relative bg-darkBg text-lightAccent dark:bg-darkText dark:text-darkBg">
       {/* <LOGO /> */}
       <div className="flex items-center gap-4 text-xl">
         {/* <img className="" src="" alt="" /> */}
@@ -47,7 +47,7 @@ const Navbar = () => {
       {/* TODO: (1) Animation */}
       {isMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-lg items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText"
+          className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-lg items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText font-sourceHanSerif"
           onClick={() => setIsMenuOpen(false)}
         >
           <p onClick={(e) => e.stopPropagation()}>交換、旅行</p>
@@ -58,7 +58,7 @@ const Navbar = () => {
       )}
 
       {/* <DESKTOP MENU /> */}
-      <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium">
+      <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium font-sourceHanSerif">
         <p className="cursor-pointer">交換、旅行</p>
         <p className="cursor-pointer">閱讀、Podcast</p>
         <p className="cursor-pointer">關於生活</p>

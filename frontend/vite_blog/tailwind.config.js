@@ -5,11 +5,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        lightBg: "#c7efff",
+        lightBg: "#E6FFFD",
         lightText: "#5E5E5E",
-        lightAccent: "#fff2f2",
+        lightAccent: "#FFE6E8",
+        lightFooter: "#FF858E",
         darkBg: "#5E5E5E",
-        darkText: "#c7efff",
+        darkText: "#E6FFFD",
+      },
+      fontFamily: {
+        sourceHanSerif: ["SourceHanSerifTC", "serif"],
       },
     },
   },

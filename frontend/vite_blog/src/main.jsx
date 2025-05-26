@@ -1,25 +1,14 @@
 // Entry point of the app
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-
-createRoot(document.getElementById("navbar-root")).render(
-  <StrictMode>
-    <Navbar />
-  </StrictMode>
-);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-  </StrictMode>
-);
-
-createRoot(document.getElementById("footer-root")).render(
-  <StrictMode>
-    <Footer />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>
 );

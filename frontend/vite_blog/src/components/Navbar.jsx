@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -50,19 +51,85 @@ const Navbar = () => {
           className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-lg items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText font-sourceHanSerif"
           onClick={() => setIsMenuOpen(false)}
         >
-          <p onClick={(e) => e.stopPropagation()}>交換、旅行</p>
-          <p onClick={(e) => e.stopPropagation()}>閱讀、Podcast</p>
-          <p onClick={(e) => e.stopPropagation()}>生活</p>
-          <p onClick={(e) => e.stopPropagation()}>關於我</p>
+          <Link
+            to="/posts?tag=travel"
+            // className="block"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMenuOpen(false);
+            }}
+          >
+            旅行
+          </Link>
+          <Link
+            to="/posts?tag=inkTrail"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMenuOpen(false);
+            }}
+          >
+            閱讀
+          </Link>
+          <Link
+            to="/posts?tag=life"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMenuOpen(false);
+            }}
+          >
+            生活
+          </Link>
+          <Link
+            to="/posts?tag=aboutMe"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMenuOpen(false);
+            }}
+          >
+            關於我
+          </Link>
         </div>
       )}
 
       {/* <DESKTOP MENU /> */}
       <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium font-sourceHanSerif">
-        <p className="cursor-pointer">交換、旅行</p>
-        <p className="cursor-pointer">閱讀、Podcast</p>
-        <p className="cursor-pointer">生活</p>
-        <p className="cursor-pointer">關於我</p>
+        <Link
+          to="/posts?tag=travel"
+          // className="block"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(false);
+          }}
+        >
+          旅行
+        </Link>
+        <Link
+          to="/posts?tag=inkTrail"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(false);
+          }}
+        >
+          閱讀
+        </Link>
+        <Link
+          to="/posts?tag=life"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(false);
+          }}
+        >
+          生活
+        </Link>
+        <Link
+          to="/posts?tag=aboutMe"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(false);
+          }}
+        >
+          關於我
+        </Link>
         <button
           onClick={() => setDarkMode((prev) => !prev)}
           className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"

@@ -20,7 +20,7 @@ const Posts = () => {
     <div>
       <h1 className="text-2xl font-bold">文章列表</h1>
       <div className="flex gap-2">
-        {["all", "education", "life", "cooking"].map((t) => (
+        {["all", "travel", "inkTrail", "life", "aboutMe"].map((t) => (
           <button
             key={t}
             className={`px-3 py-1 rounded-full ${

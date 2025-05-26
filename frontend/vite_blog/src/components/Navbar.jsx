@@ -52,8 +52,8 @@ const Navbar = () => {
         >
           <p onClick={(e) => e.stopPropagation()}>交換、旅行</p>
           <p onClick={(e) => e.stopPropagation()}>閱讀、Podcast</p>
-          <p onClick={(e) => e.stopPropagation()}>關於生活</p>
-          <p onClick={(e) => e.stopPropagation()}>聯繫我</p>
+          <p onClick={(e) => e.stopPropagation()}>生活</p>
+          <p onClick={(e) => e.stopPropagation()}>關於我</p>
         </div>
       )}
 
@@ -61,11 +61,11 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium font-sourceHanSerif">
         <p className="cursor-pointer">交換、旅行</p>
         <p className="cursor-pointer">閱讀、Podcast</p>
-        <p className="cursor-pointer">關於生活</p>
-        <p className="cursor-pointer">聯繫我</p>
+        <p className="cursor-pointer">生活</p>
+        <p className="cursor-pointer">關於我</p>
         <button
           onClick={() => setDarkMode((prev) => !prev)}
-          className="ml-4 text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"
+          className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"
         >
           {darkMode ? "☀️" : "🌙"}
         </button>

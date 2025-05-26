@@ -1,20 +1,19 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-
-const mockPosts = [
-  { id: 1, title: "十三區 - 六個月的家", tags: ["life"] },
-  { id: 2, title: "很吵的小孩？", tags: ["education"] },
-  { id: 3, title: "貓咪舌頭", tags: ["cooking"] },
-];
 
 const Posts = () => {
   const [tag, setTag] = useState("");
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const filteredPosts = tag
-      ? mockPosts.filter((post) => post.tags.includes(tag))
-      : mockPosts;
-    setPosts(filteredPosts);
+    const fetchPosts = async () => {
+      const res = await axios.get("http://localhost:3000/api/posts", {
+        params: tag ? { tag } : {},
+      });
+      console.log(res);
+      setPosts(res.data);
+    };
+    fetchPosts();
   }, [tag]);
 
   return (

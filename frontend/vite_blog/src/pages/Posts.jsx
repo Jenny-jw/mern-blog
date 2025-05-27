@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Posts = () => {
   const [tag, setTag] = useState("");
@@ -36,7 +37,12 @@ const Posts = () => {
         <ul className="space-y-3">
           {posts.map((post) => (
             <li key={post.id} className="border-b pb-2">
-              <h2 className="text-xl">{post.title}</h2>
+              <Link
+                to={`/posts/${post._id}`}
+                className="text-xl text-blue-600 hover:underline"
+              >
+                {post.title}
+              </Link>
             </li>
           ))}
         </ul>

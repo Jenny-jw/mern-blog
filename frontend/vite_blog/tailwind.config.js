@@ -8,7 +8,7 @@ export default {
         lightBg: "#E6FFFD",
         lightText: "#5E5E5E",
         lightAccent: "#FFE6E8",
-        lightFooter: "#FF858E",
+        lightFooter: "#FF858E", //#FFB3B9
         darkBg: "#5E5E5E",
         darkText: "#E6FFFD",
       },

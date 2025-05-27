@@ -4,6 +4,7 @@ import Home from "./pages/Home.jsx";
 import Posts from "./pages/Posts.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
+import SinglePost from "./pages/SinglePost.jsx";
 import "./App.css";
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:id" element={<SinglePost />} />
         </Routes>
       </main>
 

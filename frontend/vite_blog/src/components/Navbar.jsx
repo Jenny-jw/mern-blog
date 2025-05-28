@@ -23,8 +23,15 @@ const Navbar = () => {
     <div className="navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold relative bg-darkBg text-lightAccent dark:bg-darkText dark:text-darkBg">
       {/* <LOGO /> */}
       <div className="flex items-center gap-4 text-xl">
-        {/* <img className="" src="" alt="" /> */}
-        <span>Tako's note</span>
+        <Link
+          to={"/"}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          {/* <img className="" src="" alt="" /> */}
+          <span>Tako's note</span>
+        </Link>
       </div>
 
       {/* <MOBILE: TOGGLE & MENU /> */}

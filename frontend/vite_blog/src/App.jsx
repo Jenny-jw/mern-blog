@@ -5,7 +5,9 @@ import Posts from "./pages/Posts.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import SinglePost from "./pages/SinglePost.jsx";
+import NewPost from "./pages/NewPost.jsx";
 import "./App.css";
+import AboutMe from "./pages/AboutMe.jsx";
 
 const App = () => {
   return (
@@ -17,8 +19,10 @@ const App = () => {
       <main className="flex-grow w-full max-w-screen-xl mx-auto px-4">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/aboutMe" element={<AboutMe />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:id" element={<SinglePost />} />
+          <Route path="/new" element={<NewPost />} />
         </Routes>
       </main>
 

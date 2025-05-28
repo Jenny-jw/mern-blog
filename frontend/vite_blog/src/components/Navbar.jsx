@@ -80,7 +80,7 @@ const Navbar = () => {
             生活
           </Link>
           <Link
-            to="/posts?tag=aboutMe"
+            to="/aboutMe"
             onClick={(e) => {
               e.stopPropagation();
               setIsMenuOpen(false);
@@ -122,7 +122,7 @@ const Navbar = () => {
           生活
         </Link>
         <Link
-          to="/posts?tag=aboutMe"
+          to="/aboutMe"
           onClick={(e) => {
             e.stopPropagation();
             setIsMenuOpen(false);

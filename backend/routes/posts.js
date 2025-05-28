@@ -3,12 +3,6 @@ import Post from "../models/Post.js";
 
 const router = express.Router();
 
-// const posts = [
-//   { id: 1, title: "十三區 - 六個月的家", tags: ["life"] },
-//   { id: 2, title: "很吵的小孩？", tags: ["travel"] },
-//   { id: 3, title: "沼澤女孩", tags: ["inkTrail"] },
-// ];
-
 router.get("/", async (req, res) => {
   const { tag } = req.query;
   try {
@@ -22,9 +16,11 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    if (!post)
+      return res.status(404).json({ error: "Cannot find the article" });
     res.json(post);
   } catch (err) {
-    res.status(500).json({ error: "Article doesn't exist." });
+    res.status(500).json({ error: "Server error." });
   }
 });
 

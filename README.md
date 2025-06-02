@@ -3,7 +3,7 @@
 > Provide API for front-end calls (data access, login, article CRUD, etc.)
 
 ```
-cd backend
+cd ~/mern-blog/backend
 npm start
 ```
 
@@ -18,7 +18,7 @@ mongod --dbpath ~/mern-blog/data/db
 ## In another terminal
 
 ```
-node server.js
+node ~/mern-blog/backend/server.js
 ```
 
 # Start frontend Vite (React app)
@@ -26,6 +26,6 @@ node server.js
 > Provides the interface in the browser (which calls the back-end API)
 
 ```
-cd frontend/vite_blog
+cd ~/mern-blog/frontend/vite_blog
 npm run dev
 ```

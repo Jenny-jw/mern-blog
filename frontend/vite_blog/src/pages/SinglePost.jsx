@@ -15,7 +15,7 @@ const SinglePost = () => {
   if (!post) return <div>Loading...</div>;
 
   return (
-    <div className="prose dark:prose-invert max-w-screen-md mx-auto m-8">
+    <div className="prose-left prose-lg dark:prose-invert max-w-screen-md mx-auto m-8">
       <h1 className="text-2xl font-bold">{post.title}</h1>
       <div className="m-6" dangerouslySetInnerHTML={{ __html: post.content }} />
     </div>

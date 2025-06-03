@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-
+// 實際發生滾動的是 #root 元素，而不是 window
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(
     () => localStorage.getItem("theme") === "dark"
   );
+  const [show, setShow] = useState(true);
+  const scrollY = useRef(0);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -19,8 +21,34 @@ const Navbar = () => {
     }
   }, [darkMode]);
 
+  useEffect(() => {
+    const root = document.getElementById("root");
+    if (!root) return;
+
+    const handleScroll = () => {
+      const currentY = root.scrollTop;
+
+      if (currentY <= 50) {
+        setShow(true);
+      } else if (currentY > scrollY.current) {
+        setShow(false); // 向下捲 -> 隱藏
+      } else if (currentY < scrollY.current) {
+        setShow(true); // 向上捲 -> 顯示
+      }
+
+      scrollY.current = currentY;
+    };
+
+    root.addEventListener("scroll", handleScroll);
+    return () => root.removeEventListener("scroll", handleScroll);
+  }, [show]);
+
   return (
-    <div className="navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold relative bg-darkBg text-lightAccent dark:bg-darkText dark:text-darkBg">
+    <div
+      className={`fixed top-0 navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold bg-darkBg/80 text-lightAccent dark:bg-darkText/80 dark:text-darkBg backdrop-blur shadow-md transform transition-transform duration-300 ${
+        show ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* <LOGO /> */}
       <div className="flex items-center gap-4 text-xl">
         <Link
@@ -60,7 +88,6 @@ const Navbar = () => {
         >
           <Link
             to="/posts?tag=travel"
-            // className="block"
             onClick={(e) => {
               e.stopPropagation();
               setIsMenuOpen(false);
@@ -102,7 +129,6 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium font-sourceHanSerif">
         <Link
           to="/posts?tag=travel"
-          // className="block"
           onClick={(e) => {
             e.stopPropagation();
             setIsMenuOpen(false);

@@ -12,11 +12,8 @@ import AboutMe from "./pages/AboutMe.jsx";
 const App = () => {
   return (
     <div className="min-h-screen flex flex-col bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText">
-      <div className="w-screen">
-        <Navbar />
-      </div>
-
-      <main className="flex-grow w-full max-w-screen-xl mx-auto px-4">
+      <Navbar />
+      <main className="flex-grow w-full max-w-screen-xl mx-auto px-4 pt-16 md:pt-20">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/aboutMe" element={<AboutMe />} />
@@ -25,10 +22,7 @@ const App = () => {
           <Route path="/new" element={<NewPost />} />
         </Routes>
       </main>
-
-      <div className="w-screen">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

@@ -1,51 +1,167 @@
 import { useState } from "react";
 import axios from "axios";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+import Underline from "@tiptap/extension-underline";
+import Heading from "@tiptap/extension-heading";
+import Blockquote from "@tiptap/extension-blockquote";
+import HorizontalRule from "@tiptap/extension-horizontal-rule";
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [tags, setTags] = useState("");
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Image,
+      Underline,
+      Heading,
+      Blockquote,
+      HorizontalRule,
+    ],
+    content: "<p>Start writing a new article 🤩</p>",
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios.post("http://localhost:3000/api/posts", {
       title,
-      content,
+      content: editor?.getHTML(),
       tags: tags.split(",").map((tag) => tag.trim()),
     });
-    alert("Successfully added an article~");
+    alert("Successfully added an article~ 😉");
+  };
+
+  const addImage = () => {
+    const url = window.prompt("Enter image URL 🖼️");
+    if (url) {
+      editor?.chain().focus().setImage({ src: url }).run();
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-screen-md mx-auto space-y-4">
-      <input
-        type="text"
-        placeholder="TITLE"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full p-2 border"
-      />
-      <textarea
-        type="text"
-        placeholder="CONTENT"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        className="w-full p-2 border h-60"
-      />
-      <input
-        type="text"
-        placeholder="TAGS (Seperate with ',')"
-        value={tags}
-        onChange={(e) => setTags(e.target.value)}
-        className="w-full p-2 border"
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-      >
-        Add Article
-      </button>
-    </form>
+    <div className="max-w-screen-md mx-auto space-y-8 p-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="text"
+          placeholder="TITLE"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+        {editor && (
+          <div className="flex flex-wrap gap-2 mb-2 text-sm">
+            <button
+              onClick={() => editor.chain().focus().toggleBold().run()}
+              type="button"
+              className="btn"
+            >
+              Bold
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleItalic().run()}
+              type="button"
+              className="btn"
+            >
+              Italic
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleUnderline().run()}
+              type="button"
+              className="btn"
+            >
+              Underline
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleStrike().run()}
+              type="button"
+              className="btn"
+            >
+              Strike
+            </button>
+            <button
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 1 }).run()
+              }
+              type="button"
+              className="btn"
+            >
+              H1
+            </button>
+            <button
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 2 }).run()
+              }
+              type="button"
+              className="btn"
+            >
+              H2
+            </button>
+            <button
+              onClick={() =>
+                editor.chain().focus().toggleHeading({ level: 3 }).run()
+              }
+              type="button"
+              className="btn"
+            >
+              H3
+            </button>
+            <button
+              onClick={() => editor.chain().focus().toggleBlockquote().run()}
+              type="button"
+              className="btn"
+            >
+              Quote
+            </button>
+            <button
+              onClick={() => editor.chain().focus().setHorizontalRule().run()}
+              type="button"
+              className="btn"
+            >
+              HR
+            </button>
+            <button
+              onClick={() =>
+                editor.chain().focus().unsetAllMarks().clearNodes().run()
+              }
+              type="button"
+              className="btn"
+            >
+              Clear
+            </button>
+            <button onClick={addImage} type="button" className="btn">
+              Image
+            </button>
+          </div>
+        )}
+        <div className="border rounded p-2">
+          <EditorContent editor={editor} className="min-h-[200px] text-left" />
+        </div>
+        <input
+          type="text"
+          placeholder="TAGS (Seperate with ',')"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          className="w-full p-2 border rounded"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Add Article
+        </button>
+      </form>
+      <hr />
+      {/* PREVIEW SECTION */}
+      <div>
+        <h2 className="text-xl font-bold mb-2">Preview:</h2>
+        <div
+          className="prose prose-sm md:prose-base max-w-none prose-left"
+          dangerouslySetInnerHTML={{ __html: editor?.getHTML() || "" }}
+        />
+      </div>
+    </div>
   );
 };
 

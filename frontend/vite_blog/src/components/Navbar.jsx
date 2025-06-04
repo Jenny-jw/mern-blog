@@ -43,9 +43,10 @@ const Navbar = () => {
     return () => root.removeEventListener("scroll", handleScroll);
   }, [show]);
 
+  // backdrop-blur 加在navbar最外層
   return (
     <div
-      className={`fixed top-0 navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold bg-darkBg/80 text-lightAccent dark:bg-darkText/80 dark:text-darkBg backdrop-blur shadow-md transform transition-transform duration-300 ${
+      className={`fixed top-0 navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold bg-darkBg/80 text-lightAccent dark:bg-darkText/80 dark:text-darkBg shadow-md transform transition-transform duration-300 ${
         show ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -83,7 +84,7 @@ const Navbar = () => {
       {/* TODO: (1) Animation */}
       {isMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-lg items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText font-sourceHanSerif"
+          className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-lg items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText"
           onClick={() => setIsMenuOpen(false)}
         >
           <Link
@@ -126,7 +127,7 @@ const Navbar = () => {
       )}
 
       {/* <DESKTOP MENU /> */}
-      <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium font-sourceHanSerif">
+      <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium">
         <Link
           to="/posts?tag=travel"
           onClick={(e) => {

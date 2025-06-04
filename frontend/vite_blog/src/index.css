@@ -11,8 +11,6 @@ body {
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto !important;
-  /* font-family: "KouzanBrushFont", cursive, sans-serif; */
-  /* font-family: "Noto Serif TC"; */
 }
 
 /* 明確讓 #root 捲動 */

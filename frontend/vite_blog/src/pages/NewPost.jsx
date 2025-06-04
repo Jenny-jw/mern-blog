@@ -34,10 +34,32 @@ const NewPost = () => {
   };
 
   const addImage = () => {
-    const url = window.prompt("Enter image URL 🖼️");
-    if (url) {
-      editor?.chain().focus().setImage({ src: url }).run();
-    }
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.click();
+
+    fileInput.onchange = async () => {
+      const file = fileInput.files?.[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const res = await axios.post(
+          "http://localhost:3000/api/upload",
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
+        const imageUrl = res.data.url;
+        editor?.chain().focus().setImage({ src: imageUrl }).run();
+      } catch (err) {
+        alert("Image upload failed 😓");
+        console.log(err);
+      }
+    };
   };
 
   return (

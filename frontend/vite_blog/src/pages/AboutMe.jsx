@@ -21,8 +21,8 @@ const AboutMe = () => {
         <p>我很喜歡一句話：</p>
         <blockquote>如果每天都有所成長，「年紀」就變得有意義了</blockquote>
         <p>
-          我希望這裡是好朋友、頻率與我相近的人可以交流的地方，所以非常歡迎留言。可以選擇匿名公開的留言、或是不公開地只傳訊息給我。
-          當然，也可以跟我說想要多讀什麼樣內容的文章 😊
+          我希望這裡是好朋友、頻率與我相近的人可以交流的地方，所以非常歡迎留言。可以選擇匿名公開的留言、或是不公開地只傳訊息給我
+          😊
         </p>
         <hr className="border-gray-500" />
         <p>
@@ -31,7 +31,11 @@ const AboutMe = () => {
         </p>
         <ul className="text-left">
           <li>書籍：哥本哈根三部曲、沼澤女孩</li>
-          <li>動漫：奧術（Arcane）、海盜戰記（Vinland Saga）</li>
+          <li>
+            動漫：奧術（Arcane）、海盜戰記（Vinland
+            Saga）、神秘小鎮大冒險（Gravity Falls）
+          </li>
+          <li>電影：納瓦尼事件簿（Navalny）</li>
           <li>影集：初戀（First Love）</li>
         </ul>
       </div>

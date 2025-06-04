@@ -11,6 +11,8 @@ body {
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto !important;
+  /* font-family: "KouzanBrushFont", cursive, sans-serif; */
+  /* font-family: "Noto Serif TC"; */
 }
 
 /* 明確讓 #root 捲動 */
@@ -23,13 +25,17 @@ body {
 }
 
 @font-face {
+  font-family: "KouzanBrushFont";
+  src: url("/fonts/KouzanBrushFontOTF.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "SourceHanSerifTC";
   src: url("/fonts/SourceHanSerifTC-VF.woff2") format("woff2-variations");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-}
-
-body {
-  font-family: "SourceHanSerifTC", sans-serif;
 }

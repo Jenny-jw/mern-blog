@@ -26,8 +26,8 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { title, content, tags } = req.body;
-    const newPost = new Post({ title, content, tags });
+    const { title, content, tags, images } = req.body;
+    const newPost = new Post({ title, content, tags, images });
     const savedPost = await newPost.save();
     res.json(savedPost);
   } catch (err) {

@@ -8,6 +8,7 @@ const SinglePost = () => {
   const [post, setPost] = useState(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const lastScrollTimeRef = useRef(0);
+  const galleryRef = useRef(null);
 
   useEffect(() => {
     axios
@@ -18,6 +19,7 @@ const SinglePost = () => {
   const images = post?.images || [];
   const prevIdx = (currentIdx - 1 + images.length) % images.length;
   const nextIdx = (currentIdx + 1) % images.length;
+
   const handleClick = (direction) => {
     if (direction === "next") {
       setCurrentIdx((prev) => (prev + 1) % images.length);
@@ -25,13 +27,27 @@ const SinglePost = () => {
       setCurrentIdx((prev) => (prev - 1 + images.length) % images.length);
     }
   };
-  const handleWheel = (e) => {
-    const now = Date.now();
-    if (now - lastScrollTimeRef.current < 400) return;
-    lastScrollTimeRef.current = now;
-    if (e.deltaY > 0) handleClick("next");
-    else if (e.deltaY < 0) handleClick("prev");
-  };
+
+  useEffect(() => {
+    const gallery = galleryRef.current;
+    if (!gallery) return;
+
+    const handleWheel = (e) => {
+      e.preventDefault();
+      const now = Date.now();
+      // if (now - lastScrollTimeRef.current < 400) return;
+      lastScrollTimeRef.current = now;
+
+      if (e.deltaY > 10) handleClick("next");
+      else if (e.deltaY < 10) handleClick("prev");
+    };
+
+    gallery.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      gallery.removeEventListener("wheel", handleWheel);
+    };
+  }, [images.length]);
 
   if (!post || images.length === 0) return <div>Loading...</div>;
 
@@ -39,9 +55,10 @@ const SinglePost = () => {
     <div className="flex flex-col md:flex-row gap-4">
       {/* LEFT: GALERY */}
       <div
-        onWheel={handleWheel}
+        ref={galleryRef}
         className="md:w-1/3 h-screen sticky top-0 flex flex-col items-center justify-center gap-4 "
       >
+        {/* PREV IMG */}
         <img
           src={images[prevIdx]}
           alt="preview-prevImg"

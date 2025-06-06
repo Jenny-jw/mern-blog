@@ -30,10 +30,43 @@ body {
   font-display: swap;
 }
 
+/* noto-serif-tc-regular - chinese-traditional */
 @font-face {
-  font-family: "SourceHanSerifTC";
-  src: url("/fonts/SourceHanSerifTC-VF.woff2") format("woff2-variations");
-  font-weight: 100 900;
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Noto Serif TC";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/noto-serif-tc-v33-chinese-traditional-regular.woff2")
+    format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* noto-serif-tc-700 - chinese-traditional */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: "Noto Serif TC";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/noto-serif-tc-v33-chinese-traditional-700.woff2")
+    format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+@font-face {
+  font-family: "LXGW WenKai TC";
+  src: url("/fonts/LXGWWenKaiTC-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LXGW WenKai TC";
+  src: url("/fonts/LXGWWenKaiTC-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LXGW WenKai TC";
+  src: url("/fonts/LXGWWenKaiTC-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }

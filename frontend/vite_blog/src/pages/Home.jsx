@@ -1,9 +1,8 @@
 const Home = () => {
   return (
     <>
-      <h1 className="text-3xl font-notoSerif">這是一段使用思源宋體的文字</h1>
-      <h1 className="font-kouzan text-4xl">衡山毛筆フォント測試</h1>
-      <h1 className="text-4xl">測試</h1>
+      <h1 className="text-3xl font-notoSerif">思源宋體</h1>
+      <h1 className="font-kouzan text-4xl">衡山毛筆フォント</h1>
       <h1>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

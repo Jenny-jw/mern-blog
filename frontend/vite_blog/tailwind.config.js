@@ -17,8 +17,8 @@ export default {
       },
       fontFamily: {
         kouzan: ["KouzanBrushFont", "cursive"],
-        sourceHanSerif: ["SourceHanSerifTC", "serif"],
-        notoSerif: ["Noto Serif TC", "serif"],
+        notoSerif: ["NotoSerifTC", "serif"],
+        wenkai: ["LXGW WenKai TC", "serif"],
       },
       typography: {
         left: {

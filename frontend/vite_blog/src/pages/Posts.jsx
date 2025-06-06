@@ -26,8 +26,7 @@ const Posts = () => {
 
   return (
     <div className="m-8">
-      <h1 className="text-2xl font-bold">文章列表</h1>
-      <div className="flex gap-2">
+      <div className="flex gap-2 m-4">
         {["all", "travel", "inkTrail", "life"].map((t) => {
           const urlTag = t === "all" ? "" : t;
           return (
@@ -45,18 +44,25 @@ const Posts = () => {
           );
         })}
       </div>
-      <ul className="space-y-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {posts.map((post) => (
-          <li key={post._id} className="border-b pb-2">
+          <div
+            key={post._id}
+            className="group bg-lightBg dark:bg-lightAccent flex flex-col items-center shadow-md rounded p-4 m-4 transition duration-300 hover:shadow-xl hover:scale-105"
+          >
+            <img
+              src={post.images[0]}
+              className="w-full max-w-[300px] object-contain rounded shadow-lg"
+            />
             <Link
               to={`/posts/${post._id}`}
-              className="text-xl text-lightFooter dark:text-darkText hover:underline"
+              className="mt-2 text-xl text-lightFooter dark:text-lightText text-center group-hover:text-lightText"
             >
               {post.title}
             </Link>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

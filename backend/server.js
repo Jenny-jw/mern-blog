@@ -3,9 +3,16 @@ import cors from "cors";
 import postRoutes from "./routes/posts.js";
 import uploadRouter from "./routes/upload.js";
 import authRouter from "./routes/auth.js";
+import commentsRouter from "./routes/comments.js";
 import verifyToken from "./middleware/verifyToken.js";
 import connectDB from "./db.js";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 
@@ -18,7 +25,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/posts", postRoutes);
 app.use("/api/upload", uploadRouter);
-app.use("/uploads", express.static("public/uploads"));
+app.use("/api/comments", commentsRouter);
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use("/api", authRouter);
 app.use("/api/protected", verifyToken, (req, res) => {
   res.json({ message: `Hello ${req.user.username}, this is protexted.` });

@@ -2,12 +2,7 @@
 
 > Provide API for front-end calls (data access, login, article CRUD, etc.)
 
-```
-cd ~/mern-blog/backend
-npm start
-```
-
-# Start MongoDB service
+## Start MongoDB service
 
 > Data Storage and Query
 
@@ -15,10 +10,11 @@ npm start
 mongod --dbpath ~/mern-blog/data/db
 ```
 
-## In another terminal
+## Start express in another terminal
 
 ```
-node ~/mern-blog/backend/server.js
+cd ~/mern-blog/backend
+npm start
 ```
 
 # Start frontend Vite (React app)

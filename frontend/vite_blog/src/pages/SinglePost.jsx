@@ -56,31 +56,31 @@ const SinglePost = () => {
       {/* LEFT: GALERY */}
       <div
         ref={galleryRef}
-        className="md:w-1/3 h-screen sticky top-0 flex flex-col items-center justify-center gap-4 "
+        className="w-full md:w-1/3 h-[25vh] md:h-screen md:sticky top-0 flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
       >
         {/* PREV IMG */}
         <img
           src={images[prevIdx]}
           alt="preview-prevImg"
-          className="w-3/5 max-w-[300px] opacity-40 cursor-pointer hover:opacity-60 transition"
+          className="w-1/4 md:w-3/5 max-w-[300px] opacity-40 cursor-pointer hover:opacity-60 transition snap-start flex-shrink-0 object-contain"
           onClick={() => handleClick("prev")}
         />
         {/* CURRENT IMG */}
         <img
           src={images[currentIdx]}
           alt={`img-${currentIdx}`}
-          className="w-4/5 max-w-[400px] object-contain rounded shadow-lg"
+          className="w-1/2 md:w-4/5 max-w-[400px] rounded shadow-lg snap-center flex-shrink-0 object-contain"
         />
         {/* NEXT IMG */}
         <img
           src={images[nextIdx]}
           alt={"preview-next"}
-          className="w-3/5 max-w-[300px] opacity-40 cursor-pointer hover:opacity-60 transition"
+          className="w-1/4 md:w-3/5 max-w-[300px] opacity-40 cursor-pointer hover:opacity-60 transition snap-end flex-shrink-0 object-contain"
           onClick={() => handleClick("next")}
         />
       </div>
       {/* RIGHT: BLOG CONTENT */}
-      <div className="md:w-2/3 prose-left prose-lg dark:prose-invert max-w-screen-md mx-auto m-8 pt-20">
+      <div className="md:w-2/3 prose-left prose-lg dark:prose-invert max-w-screen-md mx-auto m-8 pt-4 md:pt-20">
         <h1 className="text-2xl font-bold">{post.title}</h1>
         <h2 className="text-base">
           {format(new Date(post.createAt), "yyyy / MM / dd")}

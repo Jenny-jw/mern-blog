@@ -7,6 +7,7 @@ import Underline from "@tiptap/extension-underline";
 import Heading from "@tiptap/extension-heading";
 import Blockquote from "@tiptap/extension-blockquote";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
+import { auth } from "../utils/auth";
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
@@ -26,13 +27,30 @@ const NewPost = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await axios.post("http://localhost:3000/api/posts", {
-      title,
-      content: editor?.getHTML(),
-      tags: tags.split(",").map((tag) => tag.trim()),
-      images: imageList,
-    });
-    alert("Successfully added an article~ 😉");
+
+    const token = auth.getToken();
+    if (!token) {
+      alert("Please log in first");
+      return;
+    }
+    try {
+      await axios.post(
+        "http://localhost:3000/api/posts",
+        {
+          title,
+          content: editor?.getHTML(),
+          tags: tags.split(",").map((tag) => tag.trim()),
+          images: imageList,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      alert("Successfully added an article~ 😉");
+    } catch (err) {
+      alert("Post article failed 😓");
+      console.log(err);
+    }
   };
 
   const addImage = () => {
@@ -90,7 +108,6 @@ const NewPost = () => {
         }
       }
 
-      // 更新 gallery 圖片陣列
       setImageList((prev) => [...prev, ...newImageUrls]);
     };
   };

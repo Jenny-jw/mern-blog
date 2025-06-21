@@ -8,6 +8,8 @@ import SinglePost from "./pages/SinglePost.jsx";
 import NewPost from "./pages/NewPost.jsx";
 import "./App.css";
 import AboutMe from "./pages/AboutMe.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Login from "./pages/Login.jsx";
 
 const App = () => {
   return (
@@ -19,7 +21,15 @@ const App = () => {
           <Route path="/aboutMe" element={<AboutMe />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:id" element={<SinglePost />} />
-          <Route path="/new" element={<NewPost />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/new"
+            element={
+              <ProtectedRoute>
+                <NewPost />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
       <Footer />

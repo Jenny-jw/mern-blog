@@ -64,7 +64,7 @@ const Navbar = () => {
       </div>
 
       {/* <MOBILE: TOGGLE & MENU /> */}
-      <div className="md:hidden flex items-center gap-4 text-2xl">
+      <div className="md:hidden flex items-center gap-4 text-xl">
         {/* LIGHT or DARK MODE */}
         <button
           className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"
@@ -84,7 +84,7 @@ const Navbar = () => {
       {/* TODO: (1) Animation */}
       {isMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-lg items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText"
+          className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-xl items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText"
           onClick={() => setIsMenuOpen(false)}
         >
           <Link

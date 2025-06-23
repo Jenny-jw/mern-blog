@@ -25,6 +25,7 @@ const Posts = () => {
   };
 
   return (
+    // TAGS BAR
     <div className="m-8">
       <div className="flex gap-2 m-4">
         {["all", "travel", "inkTrail", "life"].map((t) => {
@@ -44,24 +45,29 @@ const Posts = () => {
           );
         })}
       </div>
+      {/* POSTS LISTS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <div
-            key={post._id}
-            className="group bg-lightBg dark:bg-lightAccent flex flex-col items-center shadow-md rounded p-4 m-4 transition duration-300 hover:shadow-xl hover:scale-105"
-          >
-            <img
-              src={post.images[0]}
-              className="w-full max-w-[300px] object-contain rounded shadow-lg"
-            />
-            <Link
-              to={`/posts/${post._id}`}
-              className="mt-2 text-xl text-lightFooter dark:text-lightText text-center group-hover:text-lightText"
+        {!posts || posts.length === 0 ? (
+          <p className="pt-10">敬請期待 (๑´ㅂ`๑)</p>
+        ) : (
+          posts.map((post) => (
+            <div
+              key={post._id}
+              className="group bg-lightFooter/80 dark:bg-lightBg/80 flex flex-col items-center shadow-md rounded p-4 m-4 transition duration-300 hover:shadow-xl hover:scale-105"
             >
-              {post.title}
-            </Link>
-          </div>
-        ))}
+              <img
+                src={post.images[0]}
+                className="w-full max-w-[300px] object-contain rounded shadow-lg"
+              />
+              <Link
+                to={`/posts/${post._id}`}
+                className="mt-2 text-xl text-lightAccent dark:text-lightText text-center group-hover:text-lightText"
+              >
+                {post.title}
+              </Link>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

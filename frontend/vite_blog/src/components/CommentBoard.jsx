@@ -55,14 +55,13 @@ const CommentBoard = () => {
             .map((c) => (
               <div
                 key={c.id}
-                className="bg-yellow-100 rounded-lg p-4 shadow text-sm break-words"
+                className="bg-lightFooter/80 dark:bg-lightBg/80 text-lightAccent dark:text-lightText rounded-lg p-4 shadow text-sm break-words"
               >
-                <div className="flex flex-row gap-4">
+                <div className="flex flex-row items-center gap-4">
                   <div className="text-xl mb-1">{c.avatar}</div>
                   <p className="font-semibold">{c.author}</p>
                 </div>
-
-                <p>{c.content}</p>
+                <p className="text-left">{c.content}</p>
               </div>
             ))}
         </div>
@@ -80,21 +79,33 @@ const CommentBoard = () => {
               className="w-full border p-2 rounded"
             />
           )}
+          <p className="font-light text-sm">
+            留言都會再後台審閱後公開，也可以選擇不公開 (๑•́ ₃ •̀๑)
+          </p>
           <textarea
             name="comment"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            onFocus={() => {
-              console.log("Focus detected");
-              setIsExpanded(true);
-            }}
+            onFocus={() => setIsExpanded(true)}
             placeholder="Write your comment..."
             className="w-full border p-2 rounded"
           />
           {isExpanded && (
             <>
               <div className="flex gap-2 items-center">
-                {["🐱", "🐶", "🦊", "🐼", "🦄"].map((a) => (
+                {[
+                  "😊",
+                  "🤩",
+                  "😜",
+                  "🥰",
+                  "😭",
+                  "😥",
+                  "🤓",
+                  "🐱",
+                  "🐶",
+                  "🦊",
+                  "🦈",
+                ].map((a) => (
                   <button
                     key={a}
                     type="button"

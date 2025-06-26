@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const rawName = req.body.name || "";
-    const rawContent = req.body.content || "";
+    const rawName = String(req.body.name || "").trim();
+    const rawContent = String(req.body.content || "").trim();
     const name = sanitizeHtml(rawName, {
       allowedTags: [],
       allowedAttributes: {},

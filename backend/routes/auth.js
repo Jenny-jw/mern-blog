@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const router = express.Router();
+const csrfProtection = csrf({ cookie: true });
 
 const ADMIN_USERNAME = "takoSan";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
@@ -47,6 +48,10 @@ router.get("/me", (req, res) => {
   } catch {
     res.status(403).json({ message: "Invalid token" });
   }
+});
+
+router.get("/csrf-token", csrfProtection, (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
 });
 
 const authRouter = router;

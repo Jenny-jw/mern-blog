@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -9,6 +9,7 @@ import Blockquote from "@tiptap/extension-blockquote";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 
 const NewPost = () => {
+  const [csrfToken, setCsrfToken] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [imageList, setImageList] = useState([]);
@@ -24,6 +25,13 @@ const NewPost = () => {
     content: "<p>Start writing a new article 🤩</p>",
   });
 
+  useEffect(() => {
+    axios
+      .get("/api/auth/csrf-token", { withCredentials: true })
+      .then((res) => setCsrfToken(res.data.csrfToken))
+      .catch(() => alert("Cannot get CSRF token"));
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -38,6 +46,9 @@ const NewPost = () => {
         },
         {
           withCredentials: true,
+          headers: {
+            "x-csrf-token": csrfToken,
+          },
         }
       );
       alert("Successfully added an article~ 😉");

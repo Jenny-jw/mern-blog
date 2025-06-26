@@ -11,6 +11,11 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+      required: true,
+      default: "👻",
+    },
     content: {
       type: String,
       required: true,

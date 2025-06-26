@@ -7,13 +7,14 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { name, content, isPublic, post } = req.body;
+    const { name, avatar, content, isPublic, post } = req.body;
     if (!name || !content || !isPublic === undefined) {
       return res.status(400).json({ error: "名稱、內容與是否公開為必填" });
     }
 
     const comment = new Comment({
       name,
+      avatar,
       content,
       isPublic,
       post,
@@ -27,10 +28,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/test", (req, res) => {
-  res.json({ message: "comments router is working" });
-});
-
 router.get("/pendingComments", verifyToken, async (req, res) => {
   try {
     const comments = await Comment.find({ approved: false }).sort({
@@ -41,6 +38,22 @@ router.get("/pendingComments", verifyToken, async (req, res) => {
     res.json(comments);
   } catch (err) {
     res.status(500).json({ error: "Cannot read comments" });
+  }
+});
+
+router.get("/approvedComments/:postId", async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const comments = await Comment.find({
+      post: postId,
+      approved: true,
+    }).sort({
+      createdAt: -1,
+    });
+    res.json(comments);
+  } catch (err) {
+    console.error("Fail to read comments：", err);
+    res.status(500).json({ error: "Fail to read comments" });
   }
 });
 

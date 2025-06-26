@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { auth } from "../utils/auth";
 
 const ReviewComments = () => {
   const [comments, setComments] = useState([]);
-  const token = auth.getToken();
 
   useEffect(() => {
-    if (!token) {
-      alert("Please log in first.");
-      return;
-    }
-
     axios
       .get("/api/comments/pendingComments", {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       })
       .then((res) => {
         console.log("API 回傳內容：", res.data);
         setComments(res.data);
       })
       .catch(() => alert("Cannot fetch comments or you don't have access"));
-  }, [token]);
+  }, []);
 
   const handleApprove = async (id) => {
     try {
@@ -29,7 +22,7 @@ const ReviewComments = () => {
         `/api/comments/${id}/approve`,
         {},
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       setComments(comments.filter((c) => c._id !== id));
@@ -41,7 +34,7 @@ const ReviewComments = () => {
   const handleReject = async (id) => {
     try {
       await axios.delete(`/api/comments/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        withCredentials: true,
       });
       setComments(comments.filter((c) => c._id !== id));
     } catch {

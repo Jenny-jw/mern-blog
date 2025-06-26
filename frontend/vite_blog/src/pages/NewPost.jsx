@@ -7,7 +7,6 @@ import Underline from "@tiptap/extension-underline";
 import Heading from "@tiptap/extension-heading";
 import Blockquote from "@tiptap/extension-blockquote";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
-import { auth } from "../utils/auth";
 
 const NewPost = () => {
   const [title, setTitle] = useState("");
@@ -28,11 +27,6 @@ const NewPost = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const token = auth.getToken();
-    if (!token) {
-      alert("Please log in first");
-      return;
-    }
     try {
       await axios.post(
         "http://localhost:3000/api/posts",
@@ -43,7 +37,7 @@ const NewPost = () => {
           images: imageList,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         }
       );
       alert("Successfully added an article~ 😉");

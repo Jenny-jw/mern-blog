@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/auth";
@@ -13,16 +12,10 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3000/api/login", {
-        username,
-        password,
-      });
-      const { token } = res.data;
-      auth.setToken(token);
+      await auth.login(username, password);
       navigate("/new");
     } catch (err) {
-      const msg = err.response?.data?.message || "Login failed";
-      auth.setError(msg);
+      alert("Login failed");
     }
   };
 

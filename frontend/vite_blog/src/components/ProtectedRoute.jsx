@@ -1,24 +1,27 @@
-import { Navigate } from "react-router-dom";
 import { auth } from "../utils/auth";
-import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
-  const token = auth.getToken();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
-  if (!token) return <Navigate to="/login" replace />;
+  useEffect(() => {
+    auth
+      .getCurrentUser()
+      .then(() => {
+        setAuthenticated(true);
+        setLoading(false);
+      })
+      .catch(() => {
+        navigate("/login");
+      });
+  }, []);
 
-  try {
-    const { exp } = jwtDecode(token);
-    if (Date.now() >= exp * 1000) {
-      auth.removeToken();
-      return <Navigate to="/login" replace />;
-    }
-  } catch (err) {
-    auth.removeToken();
-    return <Navigate to="/login" replace />;
-  }
+  if (loading) return <div>Loading...</div>;
 
-  return children;
+  return authenticated ? children : null;
 };
 
 export default ProtectedRoute;

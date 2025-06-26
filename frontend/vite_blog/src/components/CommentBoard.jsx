@@ -8,6 +8,11 @@ const CommentBoard = ({ postId }) => {
   const [content, setContent] = useState("");
   const [isPublic, setIsPublic] = useState(true);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isNameTooLong, setIsNameTooLong] = useState(false);
+  const [isContentTooLong, setIsContentTooLong] = useState(false);
+  const MAX_CONTENT_LENGTH = 500;
+  const remaining = MAX_CONTENT_LENGTH - content.length;
+  const MAX_NAME_LENGTH = 20;
 
   useEffect(() => {
     axios
@@ -15,6 +20,24 @@ const CommentBoard = ({ postId }) => {
       .then((res) => setComments(res.data))
       .catch(() => alert("Fail to read comments"));
   }, [postId]);
+
+  const handleNameChange = (e) => {
+    if (e.target.value.length <= MAX_NAME_LENGTH) {
+      setName(e.target.value);
+      setIsNameTooLong(false);
+    } else {
+      setIsNameTooLong(true);
+    }
+  };
+
+  const handleContentChange = (e) => {
+    if (e.target.value.length <= MAX_CONTENT_LENGTH) {
+      setContent(e.target.value);
+      setIsContentTooLong(false);
+    } else {
+      setIsContentTooLong(true);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,10 +100,20 @@ const CommentBoard = ({ postId }) => {
           <p className="font-light text-sm">
             留言都會再後台審閱後公開，也可以選擇不公開 (๑• . •๑)
           </p>
+          {isNameTooLong && (
+            <div className="text-red-600 font-semibold mb-2">
+              你的名字太長了
+            </div>
+          )}
+          {isContentTooLong && (
+            <div className="text-red-600 font-semibold mb-2">
+              你打太多字了，可以寫新的一則留言喔~
+            </div>
+          )}
           {isExpanded && (
             <input
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleNameChange}
               placeholder="Your name"
               className="w-full border p-2 rounded"
             />
@@ -89,11 +122,14 @@ const CommentBoard = ({ postId }) => {
           <textarea
             name="comment"
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={handleContentChange}
             onFocus={() => setIsExpanded(true)}
             placeholder="寫下你的留言..."
             className="w-full border p-2 rounded"
           />
+          <div className="text-sm text-gray-500">
+            {remaining} / {MAX_CONTENT_LENGTH}
+          </div>
           {isExpanded && (
             <>
               <div className="flex flex-wrap gap-3 items-center">

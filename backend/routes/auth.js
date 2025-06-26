@@ -16,10 +16,37 @@ router.post("/login", (req, res) => {
     const token = jwt.sign({ username }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    return res.json({ token });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 3600000,
+    });
+
+    return res.json({ message: "Login successful" });
   }
 
   return res.status(401).json({ message: "Invalid credentials" });
+});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Logged out" });
+});
+
+router.get("/me", (req, res) => {
+  const token = req.cookies.token;
+  console.log(token);
+  console.log(process.env.JWT_SECRET);
+  if (!token) return res.status(401).json({ message: "Not logged in" });
+
+  try {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    res.json({ username: user.username });
+  } catch {
+    res.status(403).json({ message: "Invalid token" });
+  }
 });
 
 const authRouter = router;

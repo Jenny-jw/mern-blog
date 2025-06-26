@@ -10,6 +10,7 @@ import "./App.css";
 import AboutMe from "./pages/AboutMe.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Login from "./pages/Login.jsx";
+import ReviewComments from "./pages/ReviewComments.jsx";
 
 const App = () => {
   return (
@@ -27,6 +28,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <NewPost />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/pendingComments"
+            element={
+              <ProtectedRoute>
+                <ReviewComments />
               </ProtectedRoute>
             }
           />

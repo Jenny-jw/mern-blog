@@ -2,13 +2,25 @@ import express from "express";
 import Comment from "../models/Comment.js";
 import verifyToken from "../middleware/verifyToken.js";
 import { comment } from "postcss";
+import sanitizeHtml from "sanitize-html";
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { name, avatar, content, isPublic, post } = req.body;
-    if (!name || !content || !isPublic === undefined) {
+    const rawName = req.body.name || "";
+    const rawContent = req.body.content || "";
+    const name = sanitizeHtml(rawName, {
+      allowedTags: [],
+      allowedAttributes: {},
+    }).trim();
+    const content = sanitizeHtml(rawContent, {
+      allowedTags: [],
+      allowedAttributes: {},
+    }).trim();
+    const { avatar, isPublic, post } = req.body;
+
+    if (!name || !content || typeof isPublic === "undefined") {
       return res.status(400).json({ error: "名稱、內容與是否公開為必填" });
     }
 

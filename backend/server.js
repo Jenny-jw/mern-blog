@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.js";
 import commentsRouter from "./routes/comments.js";
 import verifyToken from "./middleware/verifyToken.js";
 import connectDB from "./db.js";
+import uploadRouter from "./routes/upload.js";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -33,6 +34,7 @@ app.use("/api/upload", uploadRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use("/api/auth", authRouter);
+app.use("/api/upload", uploadRouter);
 app.use("/api/protected", verifyToken, (req, res) => {
   res.json({ message: `Hello ${req.user.username}, this is protexted.` });
 });

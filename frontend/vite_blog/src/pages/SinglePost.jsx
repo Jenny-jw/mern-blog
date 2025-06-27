@@ -36,7 +36,7 @@ const SinglePost = () => {
     const handleWheel = (e) => {
       e.preventDefault();
       const now = Date.now();
-      // if (now - lastScrollTimeRef.current < 400) return;
+      if (now - lastScrollTimeRef.current < 200) return;
       lastScrollTimeRef.current = now;
 
       if (e.deltaY > 10) handleClick("next");
@@ -53,12 +53,14 @@ const SinglePost = () => {
   if (!post || images.length === 0) return <div>Loading...</div>;
 
   return (
-    <div>
+    // reletive 放在最外層?!
+    <div className="">
       <div className="flex flex-col md:flex-row gap-4">
         {/* LEFT: GALERY */}
+        {/* <div className="overflow-hidden w-full md:w-1/3"> */}
         <div
           ref={galleryRef}
-          className="w-full md:w-1/3 h-[25vh] md:h-screen md:sticky top-0 flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
+          className="w-full md:w-1/3 h-[25vh] md:h-screen md:sticky md:top-0 flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
         >
           {/* PREV IMG */}
           <img
@@ -80,6 +82,7 @@ const SinglePost = () => {
             className="w-1/4 md:w-3/5 max-w-[300px] opacity-40 cursor-pointer hover:opacity-60 transition snap-end flex-shrink-0 object-contain"
             onClick={() => handleClick("next")}
           />
+          {/* </div> */}
         </div>
         {/* RIGHT: BLOG CONTENT */}
         <div className="md:w-2/3 prose-left prose-lg dark:prose-invert max-w-screen-md mx-auto m-8 pt-4 md:pt-20">

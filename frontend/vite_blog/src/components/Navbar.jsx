@@ -51,14 +51,19 @@ const Navbar = () => {
       }`}
     >
       {/* <LOGO /> */}
-      <div className="flex items-center gap-4 text-xl">
+      <div className="flex justify-center items-center text-xl">
         <Link
           to={"/"}
           onClick={(e) => {
             e.stopPropagation();
           }}
+          className="flex items-center gap-3"
         >
-          {/* <img className="" src="" alt="" /> */}
+          <img
+            className="w-10 h-10 object-contain"
+            src="../../logo.png"
+            alt=""
+          />
           <span>Tako's note</span>
         </Link>
       </div>
@@ -83,46 +88,50 @@ const Navbar = () => {
 
       {/* TODO: (1) Animation */}
       {isMenuOpen && (
+        // 最外層背景遮罩 + 點擊關閉區域
         <div
-          className="md:hidden fixed inset-0 w-screen h-screen top-16 flex flex-col space-y-6 text-xl items-center justify-center bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText"
+          className="md:hidden fixed top-16 left-0 right-0 bottom-0 text-xl transition-opacity duration-300"
           onClick={() => setIsMenuOpen(false)}
         >
-          <Link
-            to="/posts?tag=travel"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsMenuOpen(false);
-            }}
-          >
-            旅行
-          </Link>
-          <Link
-            to="/posts?tag=inkTrail"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsMenuOpen(false);
-            }}
-          >
-            閱讀
-          </Link>
-          <Link
-            to="/posts?tag=life"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsMenuOpen(false);
-            }}
-          >
-            生活
-          </Link>
-          <Link
-            to="/aboutMe"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsMenuOpen(false);
-            }}
-          >
-            關於我
-          </Link>
+          {/* 第二層：滑出 menu 本體 */}
+          <div className="flex flex-col w-screen h-screen items-center justify-center space-y-8 bg-opacity-95 bg-lightAccent dark:bg-darkBg text-lightText dark:text-darkText transform transition-transform duration-300">
+            <Link
+              to="/posts?tag=travel"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(false);
+              }}
+            >
+              旅行
+            </Link>
+            <Link
+              to="/posts?tag=inkTrail"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(false);
+              }}
+            >
+              閱讀
+            </Link>
+            <Link
+              to="/posts?tag=life"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(false);
+              }}
+            >
+              生活
+            </Link>
+            {/* <Link
+              to="/aboutMe"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(false);
+              }}
+            >
+              關於我
+            </Link> */}
+          </div>
         </div>
       )}
 
@@ -155,7 +164,7 @@ const Navbar = () => {
         >
           生活
         </Link>
-        <Link
+        {/* <Link
           to="/aboutMe"
           onClick={(e) => {
             e.stopPropagation();
@@ -163,7 +172,7 @@ const Navbar = () => {
           }}
         >
           關於我
-        </Link>
+        </Link> */}
         <button
           onClick={() => setDarkMode((prev) => !prev)}
           className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"

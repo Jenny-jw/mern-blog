@@ -1,9 +1,11 @@
 import CommentBoard from "./CommentBoard";
 
-const Footer = () => {
+const Footer = ({ className = "", children }) => {
   return (
-    <div className="flex flex-col md:flex-row bg-darkBg text-lightFooter dark:bg-darkText dark:text-darkBg">
-      {/* <CommentBoard /> */}
+    <div
+      className={`w-full px-4 box-border flex flex-col md:flex-row bg-darkBg text-lightFooter dark:bg-darkText dark:text-darkBg ${className}`}
+    >
+      {children}
     </div>
   );
 };

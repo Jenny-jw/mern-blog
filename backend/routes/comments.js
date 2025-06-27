@@ -3,10 +3,21 @@ import Comment from "../models/Comment.js";
 import verifyToken from "../middleware/verifyToken.js";
 import { comment } from "postcss";
 import sanitizeHtml from "sanitize-html";
+import rateLimit from "express-rate-limit";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+const commentLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 2,
+  message: {
+    error: "休息一下~ 你留太多言了",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+router.post("/", commentLimiter, async (req, res) => {
   try {
     const rawName = String(req.body.name || "").trim();
     const rawContent = String(req.body.content || "").trim();
@@ -18,10 +29,34 @@ router.post("/", async (req, res) => {
       allowedTags: [],
       allowedAttributes: {},
     }).trim();
-    const { avatar, isPublic, post } = req.body;
+    const { avatar, isPublic, post, recaptchaToken } = req.body;
+
+    if (!recaptchaToken) {
+      return res.status(400).json({ error: "缺少驗證碼" });
+    }
 
     if (!name || !content || typeof isPublic === "undefined") {
       return res.status(400).json({ error: "名稱、內容與是否公開為必填" });
+    }
+
+    try {
+      const secret = process.env.RECAPTCHA_SECRET_KEY;
+      const googleRes = await axios.post(
+        "https://www.google.com/recaptcha/api/siteverify",
+        null,
+        {
+          params: {
+            secret,
+            response: recaptchaToken,
+          },
+        }
+      );
+
+      if (!googleRes.data.success) {
+        return res.status(403).json({ error: "驗證失敗" });
+      }
+    } catch (err) {
+      return res.status(500).json({ error: "驗證服務錯誤" });
     }
 
     const comment = new Comment({

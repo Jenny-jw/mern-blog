@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ReCAPTCHA from "react-google-recaptcha";
+
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const CommentBoard = ({ postId }) => {
   const [comments, setComments] = useState([]);
@@ -10,6 +13,7 @@ const CommentBoard = ({ postId }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isNameTooLong, setIsNameTooLong] = useState(false);
   const [isContentTooLong, setIsContentTooLong] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
   const MAX_CONTENT_LENGTH = 500;
   const remaining = MAX_CONTENT_LENGTH - content.length;
   const MAX_NAME_LENGTH = 20;
@@ -42,6 +46,11 @@ const CommentBoard = ({ postId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!recaptchaToken) {
+      alert("請完成驗證");
+      return;
+    }
+
     if (!name.trim()) {
       alert("名字要填~");
     }
@@ -56,12 +65,14 @@ const CommentBoard = ({ postId }) => {
         content,
         isPublic,
         post: postId,
+        recaptchaToken,
       });
       alert("留言送出~ 等待審核");
       setName("");
       setContent("");
       setIsPublic(true);
       setIsExpanded(false);
+      setRecaptchaToken(null);
     } catch (err) {
       alert("留言失敗 😥");
       console.log(err);
@@ -98,7 +109,7 @@ const CommentBoard = ({ postId }) => {
         >
           <h2 className="text-lg font-bold">留個言吧 ✏️</h2>
           <p className="font-light text-sm">
-            留言都會再後台審閱後公開，也可以選擇不公開 (๑• . •๑)
+            留言都會由後台審閱後再公開，也可以選擇不公開 (๑• . •๑)
           </p>
           {isNameTooLong && (
             <div className="text-red-600 font-semibold mb-2">
@@ -114,8 +125,9 @@ const CommentBoard = ({ postId }) => {
             <input
               value={name}
               onChange={handleNameChange}
-              placeholder="Your name"
-              className="w-full border p-2 rounded"
+              placeholder="你的名字 / 暱稱..."
+              className="w-full border p-2 rounded bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
+              required
             />
           )}
 
@@ -125,7 +137,8 @@ const CommentBoard = ({ postId }) => {
             onChange={handleContentChange}
             onFocus={() => setIsExpanded(true)}
             placeholder="寫下你的留言..."
-            className="w-full border p-2 rounded"
+            className="w-full border p-2 rounded bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
+            required
           />
           <div className="text-sm text-gray-500">
             {remaining} / {MAX_CONTENT_LENGTH}
@@ -139,13 +152,25 @@ const CommentBoard = ({ postId }) => {
                   "😜",
                   "🥰",
                   "😭",
-                  "😥",
                   "🤓",
+                  "😎",
                   "🐱",
                   "🐶",
                   "🦊",
+                  "🐯",
+                  "🦁",
                   "🦈",
-                  "👻",
+                  "🐙",
+                  "🪼",
+                  "🐬",
+                  "🐠",
+                  "🐰",
+                  "🐿️",
+                  "🦔",
+                  "🐥",
+                  "🦆",
+                  "🐢",
+                  "🦦",
                 ].map((a) => (
                   <button
                     key={a}
@@ -170,6 +195,14 @@ const CommentBoard = ({ postId }) => {
                 />
                 跟大家分享這個留言
               </label>
+              <div className="scale-60">
+                <ReCAPTCHA
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={(token) => setRecaptchaToken(token)}
+                  theme="dark"
+                />
+              </div>
+
               <button
                 type="submit"
                 className="bg-lightFooter/80 dark:bg-lightBg/80 text-lightAccent dark:text-lightText px-4 py-2 rounded"

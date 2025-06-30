@@ -4,6 +4,7 @@ import verifyToken from "../middleware/verifyToken.js";
 import { comment } from "postcss";
 import sanitizeHtml from "sanitize-html";
 import rateLimit from "express-rate-limit";
+import csrf from "csurf";
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });

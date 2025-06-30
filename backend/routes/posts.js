@@ -1,5 +1,6 @@
 import express from "express";
 import Post from "../models/Post.js";
+import csrf from "csurf";
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });

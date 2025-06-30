@@ -39,15 +39,14 @@ router.post("/logout", (req, res) => {
 
 router.get("/me", (req, res) => {
   const token = req.cookies.token;
-  console.log(token);
-  console.log(process.env.JWT_SECRET);
+
   if (!token) return res.status(401).json({ message: "Not logged in" });
 
   try {
     const user = jwt.verify(token, process.env.JWT_SECRET);
     res.json({ username: user.username });
   } catch {
-    res.status(403).json({ message: "Invalid token" });
+    return res.status(403).json({ message: "Invalid token" });
   }
 });
 

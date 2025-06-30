@@ -2,6 +2,7 @@ import express from "express";
 import Post from "../models/Post.js";
 
 const router = express.Router();
+const csrfProtection = csrf({ cookie: true });
 
 router.get("/", async (req, res) => {
   const { tag } = req.query;
@@ -24,7 +25,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", csrfProtection, async (req, res) => {
   try {
     const { title, content, tags, images } = req.body;
     const newPost = new Post({ title, content, tags, images });

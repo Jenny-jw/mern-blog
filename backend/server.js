@@ -41,7 +41,7 @@ app.options(
 );
 app.use(cookieParser());
 app.use(express.json());
-app.use(csrfProtection);
+// app.use(csrfProtection);
 app.use("/api/posts", postRoutes);
 app.use("/api/upload", uploadRouter);
 app.use("/api/comments", commentsRouter);

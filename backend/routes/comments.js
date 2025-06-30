@@ -6,6 +6,7 @@ import sanitizeHtml from "sanitize-html";
 import rateLimit from "express-rate-limit";
 
 const router = express.Router();
+const csrfProtection = csrf({ cookie: true });
 
 const commentLimiter = rateLimit({
   windowMs: 60 * 1000,
@@ -104,7 +105,7 @@ router.get("/approvedComments/:postId", async (req, res) => {
   }
 });
 
-router.patch("/:id/approve", verifyToken, async (req, res) => {
+router.patch("/:id/approve", verifyToken, csrfProtection, async (req, res) => {
   try {
     const comments = await Comment.findByIdAndUpdate(
       req.params.id,
@@ -119,7 +120,7 @@ router.patch("/:id/approve", verifyToken, async (req, res) => {
   }
 });
 
-router.delete("/:id", verifyToken, async (req, res) => {
+router.delete("/:id", verifyToken, csrfProtection, async (req, res) => {
   try {
     const comment = await Comment.findByIdAndDelete(req.params.id);
     if (!comment) return res.status(404).json({ error: "Cannot find comment" });

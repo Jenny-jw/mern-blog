@@ -16,7 +16,8 @@ const ProtectedRoute = ({ children }) => {
       })
       .catch(() => {
         navigate("/login");
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   if (loading) return <div>Loading...</div>;

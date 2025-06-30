@@ -2,6 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import csrf from "csurf";
+import verifyToken from "../middleware/verifyToken";
 
 dotenv.config();
 
@@ -37,17 +38,21 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out" });
 });
 
-router.get("/me", (req, res) => {
-  const token = req.cookies.token;
+// router.get("/me", (req, res) => {
+//   const token = req.cookies.token;
 
-  if (!token) return res.status(401).json({ message: "Not logged in" });
+//   if (!token) return res.status(401).json({ message: "Not logged in" });
 
-  try {
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    res.json({ username: user.username });
-  } catch {
-    return res.status(403).json({ message: "Invalid token" });
-  }
+//   try {
+//     const user = jwt.verify(token, process.env.JWT_SECRET);
+//     res.json({ username: user.username });
+//   } catch {
+//     return res.status(403).json({ message: "Invalid token" });
+//   }
+// });
+
+router.get("/me", verifyToken, (req, res) => {
+  res.json({ username: req.user.username });
 });
 
 router.get("/csrf-token", csrfProtection, (req, res) => {

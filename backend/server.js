@@ -35,13 +35,13 @@ app.use(
   })
 );
 console.log("B");
-app.options(
-  "*",
-  cors({
-    origin: "https://mern-blog-y294.onrender.com",
-    credentials: true,
-  })
-);
+// app.options(
+//   "*",
+//   cors({
+//     origin: "https://mern-blog-y294.onrender.com",
+//     credentials: true,
+//   })
+// );
 console.log("C");
 app.use(cookieParser());
 app.use(express.json());

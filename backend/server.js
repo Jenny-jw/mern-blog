@@ -28,6 +28,15 @@ app.use(
   cors({
     origin: "https://mern-blog-y294.onrender.com",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    optionsSuccessStatus: 200,
+  })
+);
+app.options(
+  "*",
+  cors({
+    origin: "https://mern-blog-y294.onrender.com",
+    credentials: true,
   })
 );
 app.use(cookieParser());

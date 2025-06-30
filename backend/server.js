@@ -33,13 +33,17 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/posts", postRoutes);
 app.use("/api/upload", uploadRouter);
 app.use("/api/comments", commentsRouter);
-app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use("/api/auth", authRouter);
 app.use("/api/protected", verifyToken, (req, res) => {
   res.json({ message: `Hello ${req.user.username}, this is protexted.` });
+});
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);

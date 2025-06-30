@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from "../axios";
 
-const BASE_URL = "/api/auth";
+const BASE_URL = "/auth";
 
 export const auth = {
   login: async (username, password) => {
@@ -19,7 +19,7 @@ export const auth = {
     return res.data;
   },
   test: async () => {
-    const res = await axios.get("/api/auth/test", {
+    const res = await axios.get("/auth/test", {
       withCredentials: true,
     });
     return res.data;

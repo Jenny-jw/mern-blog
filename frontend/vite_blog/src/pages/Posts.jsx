@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axios";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ const Posts = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("http://localhost:3000/api/posts", {
+      const res = await axios.get("/posts", {
         params: tag ? { tag } : {},
       });
       setPosts(res.data);

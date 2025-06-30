@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 
 const ReviewComments = () => {
   const [csrfToken, setCsrfToken] = useState("");
@@ -7,12 +7,12 @@ const ReviewComments = () => {
 
   useEffect(() => {
     axios
-      .get("/api/auth/csrf-token", { withCredentials: true })
+      .get("/auth/csrf-token", { withCredentials: true })
       .then((res) => setCsrfToken(res.data.csrfToken))
       .catch(() => alert("Cannot get CSRF token"));
 
     axios
-      .get("/api/comments/pendingComments", {
+      .get("/comments/pendingComments", {
         withCredentials: true,
       })
       .then((res) => {
@@ -25,7 +25,7 @@ const ReviewComments = () => {
   const handleApprove = async (id) => {
     try {
       await axios.patch(
-        `/api/comments/${id}/approve`,
+        `/comments/${id}/approve`,
         {},
         {
           withCredentials: true,
@@ -42,7 +42,7 @@ const ReviewComments = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.delete(`/api/comments/${id}`, {
+      await axios.delete(`/comments/${id}`, {
         withCredentials: true,
         headers: {
           "x-csrf-token": csrfToken,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -37,7 +37,7 @@ const NewPost = () => {
 
     try {
       await axios.post(
-        "http://localhost:3000/api/posts",
+        "/posts",
         {
           title,
           content: editor?.getHTML(),
@@ -71,13 +71,9 @@ const NewPost = () => {
       formData.append("image", file);
 
       try {
-        const res = await axios.post(
-          "http://localhost:3000/api/upload",
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
-        );
+        const res = await axios.post("/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
         const imageUrl = res.data.url;
         editor?.chain().focus().setImage({ src: imageUrl }).run();
       } catch (err) {
@@ -103,10 +99,7 @@ const NewPost = () => {
         formData.append("image", file);
 
         try {
-          const res = await axios.post(
-            "http://localhost:3000/api/upload",
-            formData
-          );
+          const res = await axios.post("/upload", formData);
           newImageUrls.push(res.data.url);
         } catch (err) {
           console.error("Gallery image upload failed", err);

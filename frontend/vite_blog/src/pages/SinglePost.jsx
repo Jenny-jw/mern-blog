@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 import { useState, useEffect, useRef } from "react";
 import { format } from "date-fns";
 import CommentBoard from "../components/CommentBoard";
@@ -12,9 +12,7 @@ const SinglePost = () => {
   const galleryRef = useRef(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/posts/${id}`)
-      .then((res) => setPost(res.data));
+    axios.get(`/posts/${id}`).then((res) => setPost(res.data));
   }, [id]);
 
   const images = post?.images || [];

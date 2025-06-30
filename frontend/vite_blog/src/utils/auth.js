@@ -18,4 +18,10 @@ export const auth = {
     const res = await axios.get(`${BASE_URL}/me`, { withCredentials: true });
     return res.data;
   },
+  test: async () => {
+    const res = await axios.get("/api/auth/test", {
+      withCredentials: true,
+    });
+    return res.data;
+  },
 };

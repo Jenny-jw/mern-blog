@@ -20,6 +20,13 @@ const ProtectedRoute = ({ children }) => {
       .finally(() => setLoading(false));
   }, []);
 
+  useEffect(() => {
+    auth
+      .test()
+      .then((data) => console.log("✅ AUTH TEST:", data))
+      .catch((err) => console.error("❌ AUTH TEST FAILED", err.response?.data));
+  }, []);
+
   if (loading) return <div>Loading...</div>;
 
   return authenticated ? children : null;

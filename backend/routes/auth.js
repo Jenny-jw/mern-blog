@@ -38,6 +38,10 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out" });
 });
 
+router.get("/test", verifyToken, (req, res) => {
+  res.json({ success: true, user: req.user });
+});
+
 // router.get("/me", (req, res) => {
 //   const token = req.cookies.token;
 
@@ -52,6 +56,7 @@ router.post("/logout", (req, res) => {
 // });
 
 router.get("/me", verifyToken, (req, res) => {
+  console.log("Cookies:", req.cookies);
   res.json({ username: req.user.username });
 });
 

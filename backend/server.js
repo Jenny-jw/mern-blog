@@ -24,7 +24,12 @@ const PORT = 3000;
 
 await connectDB();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://mern-blog-y294.onrender.com",
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(csrfProtection);

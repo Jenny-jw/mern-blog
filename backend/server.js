@@ -11,11 +11,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import cookieParser from "cookie-parser";
-import csrf from "csurf";
+// import csrf from "csurf";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const csrfProtection = csrf({ cookie: true });
+// const csrfProtection = csrf({ cookie: true });
 
 dotenv.config();
 

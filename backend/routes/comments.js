@@ -11,7 +11,7 @@ const csrfProtection = csrf({ cookie: true });
 
 const commentLimiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 2,
+  max: 5,
   message: {
     error: "休息一下~ 你留太多言了",
   },

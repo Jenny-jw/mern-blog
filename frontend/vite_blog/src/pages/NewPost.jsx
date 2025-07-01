@@ -27,7 +27,7 @@ const NewPost = () => {
 
   useEffect(() => {
     axios
-      .get("/api/auth/csrf-token", { withCredentials: true })
+      .get("/auth/csrf-token", { withCredentials: true })
       .then((res) => setCsrfToken(res.data.csrfToken))
       .catch(() => alert("Cannot get CSRF token"));
   }, []);

@@ -21,7 +21,6 @@ const app = express();
 const PORT = 3000;
 
 await connectDB();
-console.log("A");
 
 app.use(
   cors({
@@ -31,20 +30,15 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-console.log("B");
+
 app.use(cookieParser());
 app.use(express.json());
-console.log("C");
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
-console.log("D");
 app.use(express.static(path.join(__dirname, "public")));
-console.log("E");
 app.use("/api/posts", postRoutes);
-console.log("F");
 app.use("/api/upload", uploadRouter);
-console.log("G");
 app.use("/api/comments", commentsRouter);
-console.log("H");
+console.log("AuthRouter");
 app.use("/api/auth", authRouter);
 console.log("I");
 app.use("/api/protected", verifyToken, (req, res) => {

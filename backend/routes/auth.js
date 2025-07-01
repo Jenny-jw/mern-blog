@@ -12,6 +12,7 @@ const csrfProtection = csrf({ cookie: true });
 const ADMIN_USERNAME = "takoSan";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
+console.log("POST LOGIN");
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
@@ -32,12 +33,12 @@ router.post("/login", (req, res) => {
 
   return res.status(401).json({ message: "Invalid credentials" });
 });
-
+console.log("POST LOGOUT");
 router.post("/logout", (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logged out" });
 });
-
+console.log("GET TEST");
 router.get("/test", verifyToken, (req, res) => {
   res.json({ success: true, user: req.user });
 });
@@ -54,12 +55,12 @@ router.get("/test", verifyToken, (req, res) => {
 //     return res.status(403).json({ message: "Invalid token" });
 //   }
 // });
-
+console.log("GET ME");
 router.get("/me", verifyToken, (req, res) => {
   console.log("Cookies:", req.cookies);
   res.json({ username: req.user.username });
 });
-
+console.log("GET CSRF TOKEN");
 router.get("/csrf-token", csrfProtection, (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });

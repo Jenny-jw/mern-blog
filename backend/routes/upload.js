@@ -11,9 +11,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// const uploadDir = "public/uploads";
-// if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
@@ -22,7 +19,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 
   try {
     const streamUpload = (fileBuffer) => {
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
           { folder: "blog-images" },
           (error, result) => {

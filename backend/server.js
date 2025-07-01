@@ -38,14 +38,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/posts", postRoutes);
 app.use("/api/upload", uploadRouter);
 app.use("/api/comments", commentsRouter);
-console.log("AuthRouter");
 app.use("/api/auth", authRouter);
-console.log("I");
 app.use("/api/protected", verifyToken, (req, res) => {
   res.json({ message: `Hello ${req.user.username}, this is protexted.` });
 });
-console.log("J");
-app.get("*", (req, res) => {
+console.log("App Get");
+app.get("*", (req, res, next) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 // console.log("K");

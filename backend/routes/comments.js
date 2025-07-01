@@ -58,6 +58,10 @@ router.post("/", commentLimiter, async (req, res) => {
         return res.status(403).json({ error: "驗證失敗" });
       }
     } catch (err) {
+      console.error(
+        "Google reCAPTCHA verify error:",
+        err.response?.data || err.message || err
+      );
       return res.status(500).json({ error: "驗證服務錯誤" });
     }
 

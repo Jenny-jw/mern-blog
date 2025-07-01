@@ -20,9 +20,15 @@ const CommentBoard = ({ postId }) => {
 
   useEffect(() => {
     axios
-      .get(`/api/comments/approvedComments/${postId}`)
-      .then((res) => setComments(res.data))
-      .catch(() => alert("Fail to read comments"));
+      .get(`/comments/approvedComments/${postId}`)
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setComments(res.data);
+        } else {
+          console.warn("Unexpected response format");
+        }
+      })
+      .catch(() => console.error("Fail to read comments"));
   }, [postId]);
 
   const handleNameChange = (e) => {
@@ -59,7 +65,7 @@ const CommentBoard = ({ postId }) => {
     }
 
     try {
-      await axios.post("/api/comments", {
+      await axios.post("/comments", {
         name,
         avatar,
         content,

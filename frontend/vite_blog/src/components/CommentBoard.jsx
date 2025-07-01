@@ -117,16 +117,6 @@ const CommentBoard = ({ postId }) => {
           <p className="font-light text-sm">
             留言都會由後台審閱後再公開，也可以選擇不公開 (๑• . •๑)
           </p>
-          {isNameTooLong && (
-            <div className="text-red-600 font-semibold mb-2">
-              你的名字太長了
-            </div>
-          )}
-          {isContentTooLong && (
-            <div className="text-red-600 font-semibold mb-2">
-              你打太多字了，可以寫新的一則留言喔~
-            </div>
-          )}
           {isExpanded && (
             <input
               value={name}
@@ -208,7 +198,16 @@ const CommentBoard = ({ postId }) => {
                   theme="dark"
                 />
               </div>
-
+              {isNameTooLong && (
+                <div className="text-red-600 font-semibold mb-2">
+                  你的名字太長了
+                </div>
+              )}
+              {isContentTooLong && (
+                <div className="text-red-600 font-semibold mb-2">
+                  你打太多字了，可以寫新的一則留言喔~
+                </div>
+              )}
               <button
                 type="submit"
                 className="bg-lightFooter/80 dark:bg-lightBg/80 text-lightAccent dark:text-lightText px-4 py-2 rounded"

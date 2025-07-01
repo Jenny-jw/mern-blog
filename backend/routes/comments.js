@@ -101,8 +101,10 @@ router.get("/approvedComments/:postId", async (req, res) => {
     });
     res.json(comments);
   } catch (err) {
-    console.error("Fail to read comments：", err);
-    res.status(500).json({ error: "Fail to read comments" });
+    console.error("Fail to read comments needed to be approved：", err);
+    res
+      .status(500)
+      .json({ error: "Fail to read comments needed to be approved" });
   }
 });
 

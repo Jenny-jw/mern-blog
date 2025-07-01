@@ -43,18 +43,23 @@ app.use("/api/protected", verifyToken, (req, res) => {
   res.json({ message: `Hello ${req.user.username}, this is protexted.` });
 });
 console.log("App Get");
-app.get("*", (req, res, next) => {
-  // res.sendFile(path.join(__dirname, "public", "index.html"));
-  const filePath = path.join(__dirname, "public", "index.html");
-  res.sendFile(filePath, (err) => {
-    if (err) {
-      console.error("❌ Error serving index.html", err);
-      next(err);
-    } else {
-      console.log("✅ Serving fallback:", filePath);
-    }
-  });
+// app.get("*", (req, res, next) => {
+//   // res.sendFile(path.join(__dirname, "public", "index.html"));
+//   const filePath = path.join(__dirname, "public", "index.html");
+//   res.sendFile(filePath, (err) => {
+//     if (err) {
+//       console.error("❌ Error serving index.html", err);
+//       next(err);
+//     } else {
+//       console.log("✅ Serving fallback:", filePath);
+//     }
+//   });
+// });
+
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
 // console.log("K");
 // app.listen(PORT, () => {
 //   console.log(`🚀 Server running at http://localhost:${PORT}`);

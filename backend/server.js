@@ -45,14 +45,15 @@ app.use("/api/protected", verifyToken, (req, res) => {
 console.log("App Get");
 app.get("*", (req, res, next) => {
   // res.sendFile(path.join(__dirname, "public", "index.html"));
-  try {
-    const filePath = path.join(__dirname, "public", "index.html");
-    console.log("Serving fallback:", filePath);
-    res.sendFile(filePath);
-  } catch (err) {
-    console.error("❌ Error serving index.html", err);
-    next(err); // 傳遞給 Express 錯誤處理
-  }
+  const filePath = path.join(__dirname, "public", "index.html");
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error("❌ Error serving index.html", err);
+      next(err);
+    } else {
+      console.log("✅ Serving fallback:", filePath);
+    }
+  });
 });
 // console.log("K");
 // app.listen(PORT, () => {

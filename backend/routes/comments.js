@@ -42,15 +42,15 @@ router.post("/", commentLimiter, async (req, res) => {
     }
 
     try {
-      const secret = process.env.RECAPTCHA_SECRET_KEY;
+      const params = new URLSearchParams();
+      params.append("secret", process.env.RECAPTCHA_SECRET_KEY);
+      params.append("response", recaptchaToken);
+
       const googleRes = await axios.post(
         "https://www.google.com/recaptcha/api/siteverify",
-        null,
+        params.toString(),
         {
-          params: {
-            secret,
-            response: recaptchaToken,
-          },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
         }
       );
 

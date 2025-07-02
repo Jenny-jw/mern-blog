@@ -99,7 +99,7 @@ const CommentBoard = ({ postId }) => {
                 >
                   <div className="flex flex-row items-center gap-4">
                     <div className="text-xl mb-1">{c.avatar}</div>
-                    <p className="font-semibold">{c.author}</p>
+                    <p className="font-semibold">{c.name}</p>
                   </div>
                   <p className="text-left">{c.content}</p>
                 </div>

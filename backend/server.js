@@ -4,6 +4,7 @@ import postRoutes from "./routes/posts.js";
 import uploadRouter from "./routes/upload.js";
 import authRouter from "./routes/auth.js";
 import commentsRouter from "./routes/comments.js";
+import subscribeRouter from "./routes/subscribe.js";
 import verifyToken from "./middleware/verifyToken.js";
 import connectDB from "./db.js";
 import dotenv from "dotenv";
@@ -40,6 +41,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/upload", uploadRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/subscribe", subscribeRouter);
 app.use("/api/protected", verifyToken, (req, res) => {
   res.json({ message: `Hello ${req.user.username}, this is protexted.` });
 });

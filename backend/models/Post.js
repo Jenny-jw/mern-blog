@@ -9,6 +9,7 @@ const postSchema = new mongoose.Schema({
     default: Date.now,
   },
   images: [String],
+  isPublished: { type: Boolean, default: false },
 });
 
 export default mongoose.model("Post", postSchema);

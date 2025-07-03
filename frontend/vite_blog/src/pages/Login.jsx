@@ -25,14 +25,14 @@ const Login = () => {
       {error && <p className="text-red-500 mb-2">{error}</p>}
       <form onSubmit={handleLogin}>
         <input
-          className="block w-full border p-2 mb-3"
+          className="block w-full border p-2 mb-3 bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
           type="text"
           placeholder="USERNAME"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          className="block w-full border p-2 mb-3"
+          className="block w-full border p-2 mb-3 bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
           type="password"
           placeholder="PASSWORD"
           value={password}

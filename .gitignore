@@ -1,6 +1,6 @@
 .env
 /data/db/
-**/node_modules/
-**/node_modules/.package-lock.json
+/node_modules/
+/backend/node_modules/
+/frontend/vite_blog/node_modules/
 backend/public/uploads/
-backend/node_modules/.package-lock.json

@@ -14,6 +14,7 @@ export default {
         darkBg: "#2e2e2e",
         darkText: "#E6FFFD",
         darkButton: "#b3fff9",
+        greyButton: "#5e5e5e",
       },
       fontFamily: {
         kouzan: ["KouzanBrushFont", "cursive"],

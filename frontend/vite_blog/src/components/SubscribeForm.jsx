@@ -23,18 +23,21 @@ const SubscribeForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-row max-w-sm mx-auto">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-row gap-4 w-full items-center"
+    >
       <input
         type="email"
         placeholder="輸入你的 Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="border p-2 w-full rounded"
+        className="flex-grow px-4 py-2 rounded bg-lightAccent dark:bg-lightText text-darkBg/80 dark:text-darkText"
       ></input>
       <button
         type="submit"
-        className="bg-lightFooter/80 dark:bg-lightBg/80 text-lightAccent dark:text-lightText px-4 py-2 rounded"
+        className="px-4 py-2 rounded bg-lightFooter/80 dark:bg-greyButton text-lightAccent dark:text-darkText"
       >
         訂閱
       </button>

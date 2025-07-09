@@ -31,6 +31,7 @@ npm run dev
 ## First
 
 ```
+cd ~/mern-blog/frontend/vite_blog
 npm run build
 ```
 

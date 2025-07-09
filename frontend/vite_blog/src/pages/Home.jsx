@@ -1,8 +1,8 @@
 const Home = () => {
   return (
     <>
-      <div className="prose-lg dark:prose-invert max-w-screen-md mx-auto px-4 py-4">
-        <style>{`p::first-letter { margin-left: 2rem; } p{text-align: left;}`}</style>
+      <div className="homepage prose-lg dark:prose-invert max-w-screen-md mx-auto px-4 py-4">
+        <style>{`.homepage p::first-letter { margin-left: 2rem; } p{text-align: left;}`}</style>
         <p>
           Hello 歡迎光臨~ 很開心你來到這裡！這裡是我寫寫心得、分享近況的地方。
           以往我都仰賴Instagram分享有的沒的，但總想要做個"自己的東西"，其實已經想寫個blog想了n年了，礙於自己的堅持
@@ -16,8 +16,8 @@ const Home = () => {
         <p>
           期許自己可以把每天都過得滿滿的，用這個blog把我的體驗與感想記錄下來。小提示：可以依照右上角的tags找到相關的文章。分類有點廣義，生活tag的文章中可能會出現食譜；閱讀tag的文章可能會跟影集或電影相關。
         </p>
-        <p>
-          給大家一個簡單的自我介紹：
+        <div className="text-left [&>p::first-letter]:ml-8">
+          <p>給大家一個簡單的自我介紹：</p>
           <ul>
             <li>
               ❀
@@ -31,7 +31,7 @@ const Home = () => {
             </li>
             <li>✿ 喜歡貓咪和有長耳朵的狗狗</li>
           </ul>
-        </p>
+        </div>
         <hr className="border-t border-lightText dark:border-darkText" />
         <p>
           這些是近期我喜歡的🤩，還不確定放在哪個tag好，或是未來開個新功能專門分享好聽

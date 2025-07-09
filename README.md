@@ -25,3 +25,23 @@ npm start
 cd ~/mern-blog/frontend/vite_blog
 npm run dev
 ```
+
+> Whenever there's a change in frontend
+
+## First
+
+```
+npm run build
+```
+
+## Second
+
+Copy everything under dist/ (but not include dist/ itself) to backend/public/.
+
+## Third
+
+```
+git push
+```
+
+Render will automatically re-deploy

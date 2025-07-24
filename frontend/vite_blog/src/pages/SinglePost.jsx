@@ -89,13 +89,13 @@ const SinglePost = () => {
           )}
         </div>
         {/* RIGHT: BLOG CONTENT */}
-        <div className="md:w-2/3 prose-left prose-lg dark:prose-invert max-w-screen-md mx-auto m-8 pt-2 md:pt-20">
+        <div className="md:w-2/3 max-w-screen-md mx-auto m-8 pt-2 md:pt-20">
           <h1 className="text-2xl font-bold">{post.title}</h1>
           <h2 className="text-base">
             {format(new Date(post.createAt), "yyyy / MM / dd")}
           </h2>
           <div
-            className="m-8"
+            className="prose prose-left prose-lg dark:prose-invert m-8"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>

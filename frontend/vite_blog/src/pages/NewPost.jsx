@@ -75,14 +75,7 @@ const NewPost = () => {
           headers: { "Content-Type": "multipart/form-data" },
         });
         const imageUrl = res.data.url;
-        editor
-          ?.chain()
-          .focus()
-          .setImage({
-            src: imageUrl,
-            class: "block mx-auto w-full max-w-[400px] h-auto",
-          })
-          .run();
+        editor?.chain().focus().setImage({ src: imageUrl }).run();
       } catch (err) {
         alert("Image upload failed 😓");
         console.log(err);

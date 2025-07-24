@@ -42,6 +42,8 @@ Copy everything under dist/ (but not include dist/ itself) to backend/public/.
 ## Third
 
 ```
+git add .
+git commit -m "xxx"
 git push
 ```
 

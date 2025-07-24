@@ -80,7 +80,7 @@ const NewPost = () => {
           .focus()
           .setImage({
             src: imageUrl,
-            class: "block mx-auto w-full max-w-[600px] h-auto",
+            class: "block mx-auto w-full max-w-[400px] h-auto",
           })
           .run();
       } catch (err) {

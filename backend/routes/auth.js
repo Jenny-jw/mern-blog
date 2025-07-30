@@ -42,19 +42,6 @@ router.get("/test", verifyToken, (req, res) => {
   res.json({ success: true, user: req.user });
 });
 
-// router.get("/me", (req, res) => {
-//   const token = req.cookies.token;
-
-//   if (!token) return res.status(401).json({ message: "Not logged in" });
-
-//   try {
-//     const user = jwt.verify(token, process.env.JWT_SECRET);
-//     res.json({ username: user.username });
-//   } catch {
-//     return res.status(403).json({ message: "Invalid token" });
-//   }
-// });
-
 router.get("/me", verifyToken, (req, res) => {
   console.log("Cookies:", req.cookies);
   res.json({ username: req.user.username });

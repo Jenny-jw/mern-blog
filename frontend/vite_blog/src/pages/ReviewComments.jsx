@@ -85,7 +85,7 @@ const ReviewComments = () => {
           ))
         )
       ) : (
-        <p>留言資料格式錯誤</p> // ✅ 防呆 fallback
+        <p>留言資料格式錯誤</p> // 防呆 fallback
       )}
     </div>
   );

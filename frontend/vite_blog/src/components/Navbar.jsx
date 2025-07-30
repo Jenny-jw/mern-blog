@@ -122,15 +122,6 @@ const Navbar = () => {
             >
               生活
             </Link>
-            {/* <Link
-              to="/aboutMe"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsMenuOpen(false);
-              }}
-            >
-              關於我
-            </Link> */}
           </div>
         </div>
       )}
@@ -164,15 +155,6 @@ const Navbar = () => {
         >
           生活
         </Link>
-        {/* <Link
-          to="/aboutMe"
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsMenuOpen(false);
-          }}
-        >
-          關於我
-        </Link> */}
         <button
           onClick={() => setDarkMode((prev) => !prev)}
           className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"

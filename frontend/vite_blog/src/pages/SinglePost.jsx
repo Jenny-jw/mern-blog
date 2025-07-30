@@ -51,7 +51,6 @@ const SinglePost = () => {
   if (!post || images.length === 0) return <div>Loading...</div>;
 
   return (
-    // reletive 放在最外層?!
     <div className="">
       <div className="flex flex-col md:flex-row gap-4">
         {/* LEFT: GALERY */}

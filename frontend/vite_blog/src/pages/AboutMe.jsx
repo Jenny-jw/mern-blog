@@ -27,7 +27,6 @@ const AboutMe = () => {
             <li>✿ 喜歡貓咪和有長耳朵的狗狗</li>
           </ul>
         </p>
-        {/* <hr className="my-8 border-lightText dark:border-darkText border-dashed" /> */}
       </div>
     </>
   );

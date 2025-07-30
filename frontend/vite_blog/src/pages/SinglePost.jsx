@@ -63,28 +63,28 @@ const SinglePost = () => {
             <img
               src={images[prevIdx]}
               alt="prevImg"
-              className="w-1/4 md:w-3/5 max-w-[400px] opacity-40 cursor-pointer hover:opacity-60 transition snap-start flex-shrink-0 object-contain"
+              className="w-1/4 md:w-3/5 max-w-[300px] opacity-40 cursor-pointer hover:opacity-60 transition snap-start flex-shrink-0 object-contain"
               onClick={() => handleClick("prev")}
             />
           ) : (
-            <div className="w-1/4 md:w-3/5 max-w-[400px]" />
+            <div className="w-1/4 md:w-3/5 max-w-[300px]" />
           )}
           {/* CURRENT IMG */}
           <img
             src={images[currentIdx]}
             alt="currentImg"
-            className="w-1/2 md:w-4/5 max-w-[500px] rounded shadow-lg snap-center flex-shrink-0 object-contain"
+            className="w-1/2 md:w-4/5 max-w-[400px] rounded shadow-lg snap-center flex-shrink-0 object-contain"
           />
           {/* NEXT IMG */}
           {images.length > 1 ? (
             <img
               src={images[nextIdx]}
               alt="nextImg"
-              className="w-1/4 md:w-3/5 max-w-[400px] opacity-40 cursor-pointer hover:opacity-60 transition snap-end flex-shrink-0 object-contain"
+              className="w-1/4 md:w-3/5 max-w-[300px] opacity-40 cursor-pointer hover:opacity-60 transition snap-end flex-shrink-0 object-contain"
               onClick={() => handleClick("next")}
             />
           ) : (
-            <div className="w-1/4 md:w-3/5 max-w-[400px]" />
+            <div className="w-1/4 md:w-3/5 max-w-[300px]" />
           )}
         </div>
         {/* RIGHT: BLOG CONTENT */}

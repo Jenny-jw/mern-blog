@@ -19,6 +19,7 @@ export default {
         kouzan: ["KouzanBrushFont", "cursive"],
         notoSerif: ["NotoSerifTC", "serif"],
         wenkai: ["LXGW WenKai TC", "serif"],
+        monoton: ["Monoton", "cursive"],
       },
       typography: {
         left: {

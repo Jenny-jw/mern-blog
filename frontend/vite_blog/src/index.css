@@ -16,8 +16,8 @@ body {
 html.neon {
   --bg: #1c1b1c;
   --text: #f6f5f7;
-  --blue: #237bff;
-  --pink: #ff4794;
+  --blue: #3c8aff;
+  --pink: #ff3f8f;
 }
 
 html.neon body #root > div {
@@ -27,6 +27,11 @@ html.neon body #root > div {
     var(--pink)
   ) !important;
   color: var(--text) !important;
+}
+
+.neon-text {
+  text-shadow: 0 0 4px var(--blue), 0 0 8px var(--blue), 0 0 16px var(--pink),
+    0 0 20px var(--pink);
 }
 
 /* 明確讓 #root 捲動 */

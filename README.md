@@ -25,6 +25,7 @@
 
 - Implement a subscription system (requires a custom domain).
 - Add support for multiple languages.
+- A better mode-switching management (create CSS for three modes).
 
 ## Quickstart
 

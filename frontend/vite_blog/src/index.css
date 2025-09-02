@@ -13,6 +13,22 @@ body {
   overflow-y: auto !important;
 }
 
+html.neon {
+  --bg: #1c1b1c;
+  --text: #f6f5f7;
+  --blue: #237bff;
+  --pink: #ff4794;
+}
+
+html.neon body #root > div {
+  background-image: linear-gradient(
+    to top left,
+    var(--blue),
+    var(--pink)
+  ) !important;
+  color: var(--text) !important;
+}
+
 /* 明確讓 #root 捲動 */
 #root {
   width: 100%;

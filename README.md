@@ -9,7 +9,7 @@
 
 - Enables users to easily post comments on articles.
 - Allows articles to be organized and filtered by tags.
-- Supports theme switching between light and dark modes.
+- Supports theme switching between light, dark, and neon modes.
 - Navbar hides on scroll down and reappears when scrolling up for better readability.
 - Automatically timestamps each article upon creation.
 

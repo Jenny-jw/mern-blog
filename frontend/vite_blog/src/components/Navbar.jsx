@@ -58,7 +58,13 @@ const Navbar = ({
             src="../../logo.png"
             alt=""
           />
-          <span>Tako's note</span>
+          <span
+            className={`transition-all duration-300 ${
+              neon ? "font-monoton neon-text text-2xl" : "font-wenkai"
+            }`}
+          >
+            Tako's note
+          </span>
         </Link>
       </div>
 

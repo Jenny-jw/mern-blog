@@ -2,24 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 // 實際發生滾動的是 #root 元素，而不是 window
-const Navbar = () => {
+const Navbar = ({
+  darkMode,
+  setDarkMode,
+  neon,
+  setNeon,
+  preNeonMode,
+  setPreNeonMode,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("theme") === "dark"
-  );
+
   const [show, setShow] = useState(true);
   const scrollY = useRef(0);
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (darkMode) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
 
   useEffect(() => {
     const root = document.getElementById("root");
@@ -73,9 +67,30 @@ const Navbar = () => {
         {/* LIGHT or DARK MODE */}
         <button
           className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"
-          onClick={() => setDarkMode((prev) => !prev)}
+          onClick={() => {
+            setDarkMode((prev) => !prev);
+            if (neon) {
+              setNeon(false);
+              setPreNeonMode(!preNeonMode);
+            }
+          }}
         >
           {darkMode ? "☀️" : "🌙"}
+        </button>
+        {/* NEON MODE */}
+        <button
+          className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"
+          onClick={() => {
+            if (neon) {
+              setNeon(false);
+              setDarkMode(preNeonMode);
+            } else {
+              setPreNeonMode(darkMode);
+              setNeon(true);
+            }
+          }}
+        >
+          ⚡
         </button>
         {/* MENU BUTTON */}
         <div
@@ -127,7 +142,7 @@ const Navbar = () => {
       )}
 
       {/* <DESKTOP MENU /> */}
-      <div className="hidden md:flex items-center gap-8 xl:gap12 font-medium">
+      <div className="hidden md:flex items-center gap-6 xl:gap12 font-medium">
         <Link
           to="/posts?tag=travel"
           onClick={(e) => {
@@ -156,10 +171,33 @@ const Navbar = () => {
           生活
         </Link>
         <button
-          onClick={() => setDarkMode((prev) => !prev)}
+          onClick={() => {
+            setDarkMode((prev) => !prev);
+            if (neon) {
+              console.log("Click ☀️🌙 during neon");
+              setNeon(false);
+              setPreNeonMode(!preNeonMode);
+            }
+          }}
           className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"
         >
           {darkMode ? "☀️" : "🌙"}
+        </button>
+        <button
+          onClick={() => {
+            if (neon) {
+              console.log("Click ⚡ during neon");
+              setNeon(false);
+              setDarkMode(preNeonMode);
+            } else {
+              setPreNeonMode(darkMode);
+              setNeon(true);
+            }
+            // setNeon((prev) => !prev);
+          }}
+          className="text-sm px-3 py-1 rounded-md bg-white text-black dark:bg-darkText dark:text-black border border-gray-300 dark:border-white"
+        >
+          ⚡
         </button>
       </div>
     </div>

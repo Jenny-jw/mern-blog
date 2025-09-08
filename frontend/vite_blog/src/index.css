@@ -14,10 +14,11 @@ body {
 }
 
 html.neon {
-  --bg: #1c1b1c;
-  --text: #f6f5f7;
+  --black: #1c1b1c;
+  --white: #f6f5f7;
   --blue: #3c8aff;
   --pink: #ff3f8f;
+  --yellow: #fff7bd;
 }
 
 html.neon body #root > div {
@@ -26,12 +27,24 @@ html.neon body #root > div {
     var(--blue),
     var(--pink)
   ) !important;
-  color: var(--text) !important;
+  color: var(--white) !important;
 }
 
 .neon-text {
   text-shadow: 0 0 4px var(--blue), 0 0 8px var(--blue), 0 0 16px var(--pink),
     0 0 20px var(--pink);
+}
+
+:root.neon button {
+  @apply text-[var(--yellow)] hover:text-[var(--pink)];
+  @apply bg-[var(--black)] hover:bg-[var(--white)];
+}
+
+html.neon .neon-filter div,
+input,
+textarea {
+  @apply text-[var(--yellow)] hover:text-[var(--pink)];
+  @apply bg-[var(--black)] hover:bg-[var(--white)];
 }
 
 /* 明確讓 #root 捲動 */

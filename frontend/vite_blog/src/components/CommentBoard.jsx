@@ -95,7 +95,7 @@ const CommentBoard = ({ postId }) => {
               .map((c) => (
                 <div
                   key={c.id}
-                  className="bg-lightFooter/80 dark:bg-lightBg/80 text-lightAccent dark:text-lightText rounded-lg p-4 shadow text-sm break-words"
+                  className="neon-filter bg-lightFooter/80 dark:bg-lightBg/80 text-lightAccent dark:text-lightText rounded-lg p-4 shadow text-sm break-words"
                 >
                   <div className="flex flex-row items-center gap-4">
                     <div className="text-xl mb-1">{c.avatar}</div>
@@ -122,7 +122,7 @@ const CommentBoard = ({ postId }) => {
               value={name}
               onChange={handleNameChange}
               placeholder="你的名字 / 暱稱..."
-              className="w-full border p-2 rounded bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
+              className="w-full border p-2 rounded neon-filter bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
               required
             />
           )}
@@ -133,7 +133,7 @@ const CommentBoard = ({ postId }) => {
             onChange={handleContentChange}
             onFocus={() => setIsExpanded(true)}
             placeholder="寫下你的留言..."
-            className="w-full border p-2 rounded bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
+            className="w-full border p-2 rounded neon-filter bg-darkBg/80 dark:bg-darkText text-lightAccent dark:text-lightText"
             required
           />
           <div className="text-sm text-gray-500">
@@ -210,7 +210,7 @@ const CommentBoard = ({ postId }) => {
               )}
               <button
                 type="submit"
-                className="bg-lightFooter/80 dark:bg-lightBg/80 text-lightAccent dark:text-lightText px-4 py-2 rounded"
+                className="bg-lightFooter/80 neon-filter dark:bg-lightBg/80 text-lightAccent dark:text-lightText px-4 py-2 rounded"
               >
                 送出留言
               </button>

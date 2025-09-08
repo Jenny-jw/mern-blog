@@ -47,7 +47,7 @@ const App = () => {
     <div
       className={`min-h-screen flex flex-col ${
         neon
-          ? "bg-gradient-to-tl from-[var(--blue)] to-[var(--pink)] text-[var(--text)]"
+          ? "bg-gradient-to-tl from-[var(--blue)] to-[var(--pink)] text-[var(--white)]"
           : "bg-lightAccent text-lightText dark:bg-darkBg dark:text-darkText"
       }`}
     >

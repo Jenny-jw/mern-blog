@@ -53,7 +53,7 @@ const Posts = () => {
           posts.map((post) => (
             <div
               key={post._id}
-              className="group bg-lightFooter/80 dark:bg-lightBg/80 flex flex-col items-center shadow-md rounded p-4 m-4 transition duration-300 hover:shadow-xl hover:scale-105"
+              className="group neon-filter bg-lightFooter/80 dark:bg-lightBg/80 flex flex-col items-center shadow-md rounded p-4 m-4 transition duration-300 hover:shadow-xl hover:scale-105"
             >
               <div className="w-full max-w-[300px] aspect-[4/3]  overflow-hidden rounded shadow-lg">
                 <img

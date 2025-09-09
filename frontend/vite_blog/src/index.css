@@ -35,22 +35,14 @@ html.neon body #root > div {
     0 0 20px var(--pink);
 }
 
-/* :root.neon button {
-  @apply text-[var(--yellow)] hover:text-[var(--pink)];
-  @apply bg-[var(--black)] hover:bg-[var(--white)];
-} */
-
-/* ,
-html.neon input,
-html.neon textarea */
-
 html.neon button,
 html.neon .neon-filter {
   @apply text-[var(--yellow)] hover:text-[var(--pink)];
   @apply bg-[var(--black)] hover:bg-[var(--white)];
 }
 
-html.neon .neon-content {
+html.neon .neon-content,
+html.neon .neon-content * {
   @apply text-[var(--white)];
 }
 

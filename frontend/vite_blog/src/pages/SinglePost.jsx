@@ -94,7 +94,7 @@ const SinglePost = () => {
             {format(new Date(post.createAt), "yyyy / MM / dd")}
           </h2>
           <div
-            className="prose prose-left prose-lg dark:prose-invert m-8"
+            className="neon-filter prose prose-left prose-lg dark:prose-invert m-8"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>

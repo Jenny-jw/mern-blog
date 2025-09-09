@@ -50,6 +50,10 @@ html.neon .neon-filter {
   @apply bg-[var(--black)] hover:bg-[var(--white)];
 }
 
+html.neon .neon-content {
+  @apply text-[var(--white)];
+}
+
 /* 明確讓 #root 捲動 */
 #root {
   width: 100%;

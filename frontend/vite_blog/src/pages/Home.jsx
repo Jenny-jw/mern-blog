@@ -22,7 +22,7 @@ const Home = () => {
           </div>
           <img
             className="w-20 h-auto object-contain"
-            src="../../public/logo.png"
+            src="../../logo.png"
             alt="logo"
           />
         </div>

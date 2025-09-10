@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.flower::marker {
+  content: "✿ ";
+  /* color: ; */
+}
+
+.cherryBlossom::marker {
+  content: "❀ ";
+}
+
+.star::marker {
+  content: "✦ ";
+}
+
 html,
 body {
   width: 100%;
@@ -33,6 +46,14 @@ html.neon body #root > div {
 .neon-text {
   text-shadow: 0 0 4px var(--blue), 0 0 8px var(--blue), 0 0 16px var(--pink),
     0 0 20px var(--pink);
+}
+
+html.neon hr {
+  @apply border-[var(--white)];
+}
+
+html.neon div[class*="border"] {
+  @apply border-[var(--white)];
 }
 
 html.neon button,

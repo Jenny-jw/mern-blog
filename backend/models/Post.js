@@ -9,6 +9,10 @@ const postSchema = new mongoose.Schema({
     default: Date.now,
   },
   images: [String],
+  views: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export default mongoose.model("Post", postSchema);

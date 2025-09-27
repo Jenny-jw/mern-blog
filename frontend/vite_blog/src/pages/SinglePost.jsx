@@ -93,6 +93,7 @@ const SinglePost = () => {
           <h2 className="text-base">
             {format(new Date(post.createAt), "yyyy / MM / dd")}
           </h2>
+          <h3>文章拜訪次數： {post.views}</h3>
           <div
             className="neon-content prose prose-left prose-lg dark:prose-invert m-8"
             dangerouslySetInnerHTML={{ __html: post.content }}

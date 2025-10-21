@@ -115,7 +115,7 @@ const Navbar = ({
           onClick={() => setIsMenuOpen(false)}
         >
           {/* 第二層：滑出 menu 本體 */}
-          <div className="neon-filter neon-content flex flex-col w-screen h-screen items-center justify-center space-y-8 bg-opacity-95 bg-lightAccent dark:bg-darkBg text-lightText dark:text-darkText transform transition-transform duration-300">
+          <div className="neon-filter flex flex-col w-screen h-screen items-center justify-center space-y-8 bg-opacity-95 bg-lightAccent dark:bg-darkBg text-lightText dark:text-darkText transform transition-transform duration-300">
             <Link
               to="/posts?tag=travel"
               onClick={(e) => {

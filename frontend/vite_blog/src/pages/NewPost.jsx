@@ -111,7 +111,7 @@ const NewPost = () => {
   };
 
   return (
-    <div className="max-w-screen-md mx-auto p-4 grid grid-cols-2 gap-8">
+    <div className="max-w-screen-lg mx-auto py-4 grid grid-cols-2 gap-8">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-semibold mb-1">Galery 🖼️</label>
@@ -239,7 +239,6 @@ const NewPost = () => {
           Add Article
         </button>
       </form>
-      <hr />
       {/* PREVIEW SECTION */}
       <div>
         <h2 className="text-xl font-bold mb-2">Preview:</h2>

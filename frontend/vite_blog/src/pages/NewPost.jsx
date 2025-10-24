@@ -111,7 +111,7 @@ const NewPost = () => {
   };
 
   return (
-    <div className="max-w-screen-md mx-auto space-y-8 p-4">
+    <div className="max-w-screen-md mx-auto p-4 grid grid-cols-2 gap-8">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block font-semibold mb-1">Galery 🖼️</label>

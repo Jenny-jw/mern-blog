@@ -88,12 +88,18 @@ const SinglePost = () => {
           )}
         </div>
         {/* RIGHT: BLOG CONTENT */}
-        <div className="md:w-2/3 max-w-screen-md mx-auto m-8 pt-2 md:pt-20">
+        <div className="md:w-2/3 max-w-screen-md mx-auto m-8 pt-2 md:pt-20 space-y-4">
           <h1 className="text-2xl font-bold">{post.title}</h1>
-          <h2 className="text-base">
+          {/* <h2 className="text-base">
             {format(new Date(post.createAt), "yyyy / MM / dd")}
           </h2>
-          <h3>文章拜訪次數： {post.views}</h3>
+          <h3>文章拜訪次數： {post.views}</h3> */}
+          <div className="flex flex-wrap items-center gap-4">
+            <h2 className="text-base">
+              {format(new Date(post.createAt), "yyyy / MM / dd")}
+            </h2>
+            <h3>文章拜訪次數：{post.views}</h3>
+          </div>
           <div
             className="neon-content prose prose-left prose-lg dark:prose-invert m-8"
             dangerouslySetInnerHTML={{ __html: post.content }}

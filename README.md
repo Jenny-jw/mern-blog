@@ -26,6 +26,7 @@
 - Implement a subscription system (requires a custom domain).
 - Add support for multiple languages.
 - A better mode-switching management (create CSS for three modes).
+- Replace 'createAt' in post schema with "timestamps: true" and copy the value of 'createAt' to 'createdAt'
 
 ## Quickstart
 

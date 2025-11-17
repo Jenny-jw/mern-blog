@@ -6,9 +6,11 @@ const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
 router.get("/", async (req, res) => {
-  const { tag } = req.query;
+  const { tag, sort = "desc" } = req.query;
   try {
-    const posts = tag ? await Post.find({ tags: tag }) : await Post.find();
+    const tagFilter = tag ? { tags: tag } : {};
+    const sortOrder = sort === "asc" ? 1 : -1;
+    const posts = await Post.find(tagFilter).sort({ createAt: sortOrder });
     res.json(posts);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch posts" });

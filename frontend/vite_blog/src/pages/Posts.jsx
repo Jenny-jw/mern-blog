@@ -7,21 +7,25 @@ const Posts = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const tag = searchParams.get("tag") || "";
+  const currentOrder = searchParams.get("sort") || "desc";
+  const nextOrder = currentOrder === "desc" ? "asc" : "desc";
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await axios.get("/posts", {
-        params: tag ? { tag } : {},
+        params: { ...(tag && { tag }), sort: currentOrder },
       });
       setPosts(res.data);
     };
     fetchPosts();
-  }, [tag]);
+  }, [tag, currentOrder]);
 
   const handleTagClick = (tag) => {
     const urlTag = tag === "all" ? "" : tag;
-    navigate(`/posts${urlTag ? `?tag=${urlTag}` : ""}`);
+    navigate(
+      `/posts${urlTag ? `?tag=${urlTag}` : ""}${`&sort=${currentOrder}`}`
+    );
   };
 
   return (
@@ -44,6 +48,15 @@ const Posts = () => {
             </button>
           );
         })}
+      </div>
+      <div className="flex m-6 items-center">
+        文章排序：
+        <button
+          onClick={() => navigate(`/posts?tag=${tag || ""}&sort=${nextOrder}`)}
+          className="px-3 py-1 rounded-full bg-lightFooter text-white dark:bg-darkButton dark:text-darkBg"
+        >
+          {currentOrder === "desc" ? "最新 → 最舊" : "最舊 → 最新"}
+        </button>
       </div>
       {/* POSTS LISTS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

@@ -23,9 +23,19 @@ const Posts = () => {
 
   const handleTagClick = (tag) => {
     const urlTag = tag === "all" ? "" : tag;
-    navigate(
-      `/posts${urlTag ? `?tag=${urlTag}` : ""}${`&sort=${currentOrder}`}`
-    );
+    if (urlTag) {
+      navigate(`/posts/?tag=${urlTag}&sort=${currentOrder}`);
+    } else {
+      navigate(`/posts/?sort=${currentOrder}`);
+    }
+  };
+
+  const handleSortClick = () => {
+    if (tag) {
+      navigate(`/posts?tag=${tag}&sort=${nextOrder}`);
+    } else {
+      navigate(`/posts?sort=${nextOrder}`);
+    }
   };
 
   return (
@@ -52,7 +62,7 @@ const Posts = () => {
       <div className="flex m-6 items-center">
         文章排序：
         <button
-          onClick={() => navigate(`/posts?tag=${tag || ""}&sort=${nextOrder}`)}
+          onClick={() => handleSortClick()}
           className="px-3 py-1 rounded-full bg-lightFooter text-white dark:bg-darkButton dark:text-darkBg"
         >
           {currentOrder === "desc" ? "最新 → 最舊" : "最舊 → 最新"}
@@ -61,7 +71,7 @@ const Posts = () => {
       {/* POSTS LISTS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {!posts || posts.length === 0 ? (
-          <p className="pt-10">敬請期待 (๑´ㅂ`๑)</p>
+          <p className="pt-10">Loading (๑´ㅂ`๑)</p>
         ) : (
           posts.map((post) => (
             <div

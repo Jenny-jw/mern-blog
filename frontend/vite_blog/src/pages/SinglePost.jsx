@@ -56,7 +56,7 @@ const SinglePost = () => {
         {/* LEFT: GALERY */}
         <div
           ref={galleryRef}
-          className="w-full md:w-1/3 h-[25vh] md:h-screen md:sticky md:top-0 flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
+          className="w-full md:w-1/3 h-[28vh] md:h-screen md:sticky md:top-0 flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
         >
           {/* PREV IMG */}
           {images.length > 1 ? (
@@ -97,7 +97,7 @@ const SinglePost = () => {
             <h3>文章拜訪次數：{post.views}</h3>
           </div>
           <div
-            className="neon-content prose prose-left prose-lg dark:prose-invert m-8"
+            className="neon-content prose prose-left prose-lg dark:prose-invert m-4 md:m-8"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>

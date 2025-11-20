@@ -42,7 +42,7 @@ const Posts = () => {
     // TAGS BAR
     <div className="m-8">
       <div className="flex gap-4 m-4">
-        {["all", "travel", "inkTrail", "life"].map((t) => {
+        {["all", "travel", "inkTrail", "life", "murmur"].map((t) => {
           const urlTag = t === "all" ? "" : t;
           return (
             <button

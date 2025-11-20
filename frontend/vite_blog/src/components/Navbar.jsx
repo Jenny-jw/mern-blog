@@ -132,7 +132,7 @@ const Navbar = ({
                 setIsMenuOpen(false);
               }}
             >
-              閱讀
+              筆記
             </Link>
             <Link
               to="/posts?tag=life"
@@ -142,6 +142,15 @@ const Navbar = ({
               }}
             >
               生活
+            </Link>
+            <Link
+              to="/posts?tag=murmur"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(false);
+              }}
+            >
+              日常murmur
             </Link>
           </div>
         </div>
@@ -165,7 +174,7 @@ const Navbar = ({
             setIsMenuOpen(false);
           }}
         >
-          閱讀
+          筆記
         </Link>
         <Link
           to="/posts?tag=life"
@@ -175,6 +184,15 @@ const Navbar = ({
           }}
         >
           生活
+        </Link>
+        <Link
+          to="/posts?tag=murmur"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(false);
+          }}
+        >
+          日常murmur
         </Link>
         <button
           onClick={() => {

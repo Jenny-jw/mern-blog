@@ -38,13 +38,19 @@ const Home = () => {
                 <li className="star">鮮奶布丁 (crème aux oeufs)</li>
                 <li className="star">黑巧克力塔 (tarte au chocolat noir)</li>
                 <li className="star">巧克力豆豆麵包 (viennoise chocolat)</li>
+                <li className="star">
+                  開心果千層派 (mille-feuille à la pistache)
+                </li>
               </ul>
             </li>
             <li className="flower">
               看書~ 總是覺得我的書不夠、有好多想買的書、但總是讀不完書櫃裡的書
               <ul>
                 <li className="star">
-                  哥本哈根三部曲（The Copenhagen Trilogy）是我近期最喜歡的
+                  林中密族 (The People in the Trees) 是我近期最喜歡的
+                </li>
+                <li className="star">
+                  哥本哈根三部曲（The Copenhagen Trilogy）是我前陣子最喜歡的
                 </li>
                 <li className="star">
                   最近想多讀愛爾蘭文學 - 都柏林人和鄉村女孩三部曲
@@ -72,9 +78,6 @@ const Home = () => {
           小提示：
           <br />
           可以依照右上角的tags找到相關的文章
-          <br />
-          分類有點廣義...
-          生活tag的文章中可能會出現食譜；閱讀tag的文章可能會跟影集或電影相關。
         </div>
 
         {/* <hr className="mx-auto w-96 border-t border-lightText dark:border-darkText" />

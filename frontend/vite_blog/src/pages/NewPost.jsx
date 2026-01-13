@@ -121,7 +121,7 @@ const NewPost = () => {
                 <img
                   key={idx}
                   src={url}
-                  className="w-24 h-24 object-over rounded"
+                  className="w-28 h-24 object-cover rounded"
                 />
               );
             })}
@@ -138,88 +138,90 @@ const NewPost = () => {
           className="w-full p-2 border rounded"
         />
         {editor && (
-          <div className="flex flex-wrap gap-2 mb-2 text-sm">
-            <button
-              onClick={() => editor.chain().focus().toggleBold().run()}
-              type="button"
-              className="btn"
-            >
-              Bold
-            </button>
-            <button
-              onClick={() => editor.chain().focus().toggleItalic().run()}
-              type="button"
-              className="btn"
-            >
-              Italic
-            </button>
-            <button
-              onClick={() => editor.chain().focus().toggleUnderline().run()}
-              type="button"
-              className="btn"
-            >
-              Underline
-            </button>
-            <button
-              onClick={() => editor.chain().focus().toggleStrike().run()}
-              type="button"
-              className="btn"
-            >
-              Strike
-            </button>
-            <button
-              onClick={() =>
-                editor.chain().focus().toggleHeading({ level: 1 }).run()
-              }
-              type="button"
-              className="btn"
-            >
-              H1
-            </button>
-            <button
-              onClick={() =>
-                editor.chain().focus().toggleHeading({ level: 2 }).run()
-              }
-              type="button"
-              className="btn"
-            >
-              H2
-            </button>
-            <button
-              onClick={() =>
-                editor.chain().focus().toggleHeading({ level: 3 }).run()
-              }
-              type="button"
-              className="btn"
-            >
-              H3
-            </button>
-            <button
-              onClick={() => editor.chain().focus().toggleBlockquote().run()}
-              type="button"
-              className="btn"
-            >
-              Quote
-            </button>
-            <button
-              onClick={() => editor.chain().focus().setHorizontalRule().run()}
-              type="button"
-              className="btn"
-            >
-              HR
-            </button>
-            <button
-              onClick={() =>
-                editor.chain().focus().unsetAllMarks().clearNodes().run()
-              }
-              type="button"
-              className="btn"
-            >
-              Clear
-            </button>
-            <button onClick={addImage} type="button" className="btn">
-              Image
-            </button>
+          <div className="sticky top-4">
+            <div className="flex flex-wrap gap-2 mb-2 text-sm">
+              <button
+                onClick={() => editor.chain().focus().toggleBold().run()}
+                type="button"
+                className="btn"
+              >
+                Bold
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleItalic().run()}
+                type="button"
+                className="btn"
+              >
+                Italic
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleUnderline().run()}
+                type="button"
+                className="btn"
+              >
+                Underline
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleStrike().run()}
+                type="button"
+                className="btn"
+              >
+                Strike
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 1 }).run()
+                }
+                type="button"
+                className="btn"
+              >
+                H1
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 2 }).run()
+                }
+                type="button"
+                className="btn"
+              >
+                H2
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 3 }).run()
+                }
+                type="button"
+                className="btn"
+              >
+                H3
+              </button>
+              <button
+                onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                type="button"
+                className="btn"
+              >
+                Quote
+              </button>
+              <button
+                onClick={() => editor.chain().focus().setHorizontalRule().run()}
+                type="button"
+                className="btn"
+              >
+                HR
+              </button>
+              <button
+                onClick={() =>
+                  editor.chain().focus().unsetAllMarks().clearNodes().run()
+                }
+                type="button"
+                className="btn"
+              >
+                Clear
+              </button>
+              <button onClick={addImage} type="button" className="btn">
+                Image
+              </button>
+            </div>
           </div>
         )}
         <div className="border rounded p-2">

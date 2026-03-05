@@ -23,6 +23,7 @@
 
 ## On the Roadmap
 
+- Use timestamps (automatically build creatAt and updateAt) in post schema instead of creatAt
 - Implement a subscription system (requires a custom domain).
 - Add support for multiple languages.
 - A better mode-switching management (create CSS for three modes).

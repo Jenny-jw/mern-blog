@@ -11,7 +11,6 @@ const Navbar = ({
   setPreNeonMode,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [show, setShow] = useState(true);
   const scrollY = useRef(0);
 
@@ -43,6 +42,7 @@ const Navbar = ({
       className={`fixed top-0 navbar-full w-full h-16 md:h-20 px-8 flex items-center justify-between font-bold bg-darkBg/80 text-lightAccent dark:bg-darkText/80 dark:text-darkBg shadow-md transform transition-transform duration-300 ${
         show ? "translate-y-0" : "-translate-y-full"
       }`}
+      id="site-navbar"
     >
       {/* <LOGO /> */}
       <div className="flex justify-center items-center text-xl">

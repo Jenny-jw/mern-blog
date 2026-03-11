@@ -10,6 +10,7 @@ const SinglePost = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const lastScrollTimeRef = useRef(0);
   const galleryRef = useRef(null);
+  // const [navbarHeight, setNavbarHeight] = useState(0);
 
   useEffect(() => {
     axios.get(`/posts/${id}`).then((res) => setPost(res.data));
@@ -48,15 +49,36 @@ const SinglePost = () => {
     };
   }, [images.length]);
 
+  useEffect(() => {
+    const updateGalleryLayout = () => {
+      const navbar = document.getElementById("site-navbar");
+      const navbarH = navbar ? navbar.getBoundingClientRect().height : 0;
+
+      // setNavbarHeight(navbarH);
+
+      if (galleryRef.current) {
+        galleryRef.current.style.top = `${navbarH}px`;
+        galleryRef.current.style.maxHeight = `calc(100vh - ${navbarH}px)`;
+      }
+    };
+
+    updateGalleryLayout();
+    window.addEventListener("resize", updateGalleryLayout);
+
+    return () => {
+      window.removeEventListener("resize", updateGalleryLayout);
+    };
+  }, []);
+
   if (!post || images.length === 0) return <div>Loading...</div>;
 
   return (
-    <div className="">
+    <div>
       <div className="flex flex-col md:flex-row gap-4">
         {/* LEFT: GALERY */}
         <div
           ref={galleryRef}
-          className="w-full md:w-1/3 h-[28vh] md:h-screen md:sticky md:top-0 flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
+          className="w-full md:w-1/3 h-[28vh] md:sticky flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-y-auto snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
         >
           {/* PREV IMG */}
           {images.length > 1 ? (

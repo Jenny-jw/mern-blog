@@ -49,26 +49,26 @@ const SinglePost = () => {
     };
   }, [images.length]);
 
-  useEffect(() => {
-    const updateGalleryLayout = () => {
-      const navbar = document.getElementById("site-navbar");
-      const navbarH = navbar ? navbar.getBoundingClientRect().height : 0;
+  // useEffect(() => {
+  //   const updateGalleryLayout = () => {
+  //     const navbar = document.getElementById("site-navbar");
+  //     const navbarH = navbar ? navbar.getBoundingClientRect().height : 0;
 
-      // setNavbarHeight(navbarH);
+  //     setNavbarHeight(navbarH);
 
-      if (galleryRef.current) {
-        galleryRef.current.style.top = `${navbarH}px`;
-        galleryRef.current.style.maxHeight = `calc(100vh - ${navbarH}px)`;
-      }
-    };
+  //     if (galleryRef.current) {
+  //       galleryRef.current.style.top = `${navbarH}px`;
+  //       galleryRef.current.style.maxHeight = `calc(100vh - ${navbarH}px)`;
+  //     }
+  //   };
 
-    updateGalleryLayout();
-    window.addEventListener("resize", updateGalleryLayout);
+  //   updateGalleryLayout();
+  //   window.addEventListener("resize", updateGalleryLayout);
 
-    return () => {
-      window.removeEventListener("resize", updateGalleryLayout);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", updateGalleryLayout);
+  //   };
+  // }, []);
 
   if (!post || images.length === 0) return <div>Loading...</div>;
 

@@ -78,7 +78,7 @@ const SinglePost = () => {
         {/* LEFT: GALERY */}
         <div
           ref={galleryRef}
-          className="w-full md:w-1/3 h-[28vh] md:sticky flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-y-auto snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
+          className="w-full md:w-1/3 h-[28vh] md:h-screen md:sticky md:top-0 flex flex-row md:flex-col items-center md:justify-center gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory px-4 py-4 md:px-0 scrollbar-hide touch-auto"
         >
           {/* PREV IMG */}
           {images.length > 1 ? (

@@ -88,7 +88,7 @@ const CommentBoard = ({ postId }) => {
     <>
       <div className="w-full flex flex-col md:flex-row gap-6 p-6">
         {/* BOARD */}
-        <div className="md:w-2/3 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 order-2 md:order-1">
+        <div className="md:w-1/2 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 order-2 md:order-1">
           {comments.length > 0 ? (
             comments
               .filter((c) => c.isPublic)
@@ -111,7 +111,7 @@ const CommentBoard = ({ postId }) => {
         {/* EDIT SECTION */}
         <form
           onSubmit={handleSubmit}
-          className="w-full md:w-1/3 space-y-4 order-1 md:order-2"
+          className="w-full md:w-1/2 space-y-4 order-1 md:order-2"
         >
           <h2 className="text-lg font-bold">留個言吧 ✏️</h2>
           <p className="font-light text-sm">

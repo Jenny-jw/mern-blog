@@ -1,4 +1,8 @@
 .env
-/data/db/
+/data/
 node_modules/
 backend/public/uploads/
+# Logs
+*.log
+# OS files
+Thumbs.db

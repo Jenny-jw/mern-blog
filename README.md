@@ -15,11 +15,27 @@
 
 ## Security Features
 
-- Sanitizes user comments to prevent XSS attacks using `sanitizeHtml`.
-- Implements rate limiting to restrict excessive comment submissions.
-- Provides CSRF protection to prevent cross-site request forgery attacks.
-- Secures authentication tokens with `jsonwebtoken` and stores them in HttpOnly cookies instead of local storage.
-- Integrates reCAPTCHA to ensure only human users can submit comments.
+- **XSS Protection**
+  - Sanitizes user-generated content using `sanitize-html` to prevent stored XSS attacks.
+  - Authentication tokens are stored in **HttpOnly cookies**, preventing access via JavaScript and mitigating token theft from XSS.
+- **CSRF Protection**
+  - Implements CSRF protection using `csurf` middleware.
+  - Uses a **double submit cookie pattern**, where the client sends a CSRF token via a custom request header (`x-csrf-token`) for server-side validation.
+  - Ensures that authenticated cross-site requests cannot be forged by malicious origins.
+- **Secure Authentication**
+  - Uses `jsonwebtoken` (JWT) for authentication.
+  - Tokens are stored in **secure, HttpOnly cookies** instead of localStorage to reduce exposure to XSS attacks.
+  - Cookies are configured with `Secure` and `SameSite=None` to support cross-site requests over HTTPS.
+- **Rate Limiting**
+  - Applies rate limiting to sensitive endpoints (e.g., comment submission) to prevent abuse and brute-force attacks.
+- **Bot Protection**
+  - Integrates **reCAPTCHA** to ensure that only human users can perform certain actions (e.g., submitting comments).
+
+- **Secure Cookie Practices**
+  - Authentication cookies are configured with:
+    - `HttpOnly` (prevents JavaScript access)
+    - `Secure` (HTTPS only)
+    - `SameSite=None` (required for cross-site API architecture)
 
 ## On the Roadmap
 

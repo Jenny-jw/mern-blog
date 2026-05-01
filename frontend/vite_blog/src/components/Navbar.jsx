@@ -150,7 +150,7 @@ const Navbar = ({
                 setIsMenuOpen(false);
               }}
             >
-              日常murmur
+              日常
             </Link>
           </div>
         </div>
@@ -192,7 +192,7 @@ const Navbar = ({
             setIsMenuOpen(false);
           }}
         >
-          日常murmur
+          日常
         </Link>
         <button
           onClick={() => {

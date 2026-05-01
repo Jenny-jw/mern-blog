@@ -27,7 +27,12 @@ const Home = () => {
           />
         </div>
         <div className="text-left">
-          <h4>我喜歡 :3</h4>
+          <h4>
+            最近覺得好好看的動漫是Made in Abyss ✨
+            畫風很精緻，背景音樂也很棒；另一部故事滿特別的，但畫風還好、背景音樂也很不錯
+            - Ranking of Kings
+          </h4>
+          <h4>我也喜歡 :3</h4>
           <ul>
             <li className="flower">貓咪和有長耳朵的狗狗</li>
             <li className="cherryBlossom">精緻的小東西，例如蕾絲鉤織</li>
@@ -47,7 +52,8 @@ const Home = () => {
               看書~ 總是覺得我的書不夠、有好多想買的書、但總是讀不完書櫃裡的書
               <ul>
                 <li className="star">
-                  林中密族 (The People in the Trees) 是我近期最喜歡的
+                  林中密族 (The People in the Trees) 一直還沒看完...
+                  最近搭火車喜歡看楊双子的台灣漫遊錄
                 </li>
                 <li className="star">
                   哥本哈根三部曲（The Copenhagen Trilogy）是我前陣子最喜歡的

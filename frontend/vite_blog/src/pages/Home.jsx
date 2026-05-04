@@ -13,7 +13,7 @@ const Home = () => {
             <span className="text-sm">(zh) </span>
             嗨依~ 我是 Tako
             <br />
-            <small>頭髮剪短至齊肩後有點翹翹的，所以G給了我Tako的綽號</small>
+            <small>髮尾翹翹的像タコ，所以G給了我Tako的綽號</small>
             <br />
             <br />
             這裡是我記錄生活片段的小角落 ✒️
@@ -26,12 +26,18 @@ const Home = () => {
             alt="logo"
           />
         </div>
+        {/* Lastest and most popular posts */}
+        <div></div>
         <div className="text-left">
           <h4>
-            最近覺得好好看的動漫是Made in Abyss ✨
-            畫風很精緻，背景音樂也很棒；另一部故事滿特別的，但畫風還好、背景音樂也很不錯
-            - Ranking of Kings
+            City the Animation 超級好看！每一集都好好笑，什麼時候才有第二季？
           </h4>
+          <h4>
+            Made in Abyss 也是讓人想一集集追下去的 ✨
+            畫風很精緻，背景音樂也很棒；
+          </h4>
+          <h4>Ranking of Kings 的故事滿特別的，背景音樂很不錯、但畫風還好</h4>
+
           <h4>我也喜歡 :3</h4>
           <ul>
             <li className="flower">貓咪和有長耳朵的狗狗</li>

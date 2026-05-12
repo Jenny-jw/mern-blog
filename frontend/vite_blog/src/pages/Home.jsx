@@ -45,7 +45,7 @@ const Home = () => {
   }, [parsedPosts]);
   // If the most viewed post is the same as the latest post, only show the latest post section
   const showLatestOnly =
-    latestPost && mostViewedPost && latestPost.id === mostViewedPost.id;
+    latestPost && mostViewedPost && latestPost._id === mostViewedPost._id;
 
   return (
     <>
@@ -79,11 +79,6 @@ const Home = () => {
             <button
               type="button"
               onClick={() => {
-                console.log(latestPost.id);
-                console.log(mostViewedPost.id);
-                console.log(latestPost._id);
-                console.log(mostViewedPost._id);
-                console.log(showLatestOnly);
                 navigate(`/posts/${latestPost._id}`);
               }}
               className="w-full flex justify-between items-center text-left border border-dashed rounded-md border-lightText dark:border-darkText gap-4 px-4"

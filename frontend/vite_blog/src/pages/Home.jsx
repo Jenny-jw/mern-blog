@@ -80,7 +80,10 @@ const Home = () => {
               type="button"
               onClick={() => {
                 console.log(latestPost);
+                console.log(showLatestOnly);
+                console.log(mostViewedPost);
                 console.log(!showLatestOnly && mostViewedPost);
+                navigate(`/posts/${latestPost._id}`);
               }}
               className="w-full flex justify-between items-center text-left border border-dashed rounded-md border-lightText dark:border-darkText gap-4 px-4"
             >

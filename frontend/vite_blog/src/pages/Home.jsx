@@ -99,8 +99,8 @@ const Home = () => {
           {!showLatestOnly && mostViewedPost && (
             <button
               type="button"
-              onClick={() => console.log(mostViewedPost)}
-              className="w-full flex justify-between items-center text-left border border-dashed rounded-md border-lightText dark:border-darkText gap-4 p-4"
+              onClick={() => navigate(`/posts/${mostViewedPost._id}`)}
+              className="w-full flex justify-between items-center text-left border border-dashed rounded-md border-lightText dark:border-darkText gap-4 px-4"
             >
               <div className="flex-1">
                 <h5 className="text-sm">最多人讀的~</h5>
@@ -110,7 +110,7 @@ const Home = () => {
                 <img
                   src={mostViewedPost.coverImage}
                   alt={mostViewedPost.title}
-                  className="w-24 h-auto object-contain ml-4"
+                  className="w-28 h-auto object-contain"
                 />
               )}
             </button>

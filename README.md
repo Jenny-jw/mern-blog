@@ -39,6 +39,7 @@
 
 ## On the Roadmap
 
+- Replace csurf with csrf-csrf package
 - Use timestamps (automatically build creatAt and updateAt) in post schema instead of creatAt
 - Implement a subscription system (requires a custom domain).
 - Add support for multiple languages.

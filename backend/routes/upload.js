@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
+import verifyToken from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ cloudinary.config({
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", verifyToken, upload.single("image"), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
   try {

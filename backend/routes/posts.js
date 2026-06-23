@@ -1,5 +1,6 @@
 import express from "express";
 import Post from "../models/Post.js";
+import verifyToken from "../middleware/verifyToken.js";
 import csrf from "csurf";
 
 const router = express.Router();
@@ -32,7 +33,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", csrfProtection, async (req, res) => {
+router.post("/", verifyToken, csrfProtection, async (req, res) => {
   try {
     const { title, content, tags, images } = req.body;
     const newPost = new Post({ title, content, tags, images });

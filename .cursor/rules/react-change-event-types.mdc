@@ -1,0 +1,25 @@
+---
+description: Use proper ChangeEvent types for React form controls
+globs: frontend/**/*.tsx
+alwaysApply: false
+---
+
+# React Change Event Rule
+
+Use `React.ChangeEvent<...>` for `onChange` handlers on form controls.
+
+- `input`: `React.ChangeEvent<HTMLInputElement>`
+- `select`: `React.ChangeEvent<HTMLSelectElement>`
+- `textarea`: `React.ChangeEvent<HTMLTextAreaElement>`
+
+```tsx
+// ✅ Good
+const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setName(e.target.value);
+};
+
+// ❌ Bad
+const onNameChange = (e: Event) => {
+  setName((e.target as HTMLInputElement).value);
+};
+```

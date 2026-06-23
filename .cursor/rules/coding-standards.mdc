@@ -1,0 +1,15 @@
+---
+description: Preferred language and React coding standards
+alwaysApply: true
+---
+
+# Coding Standards
+
+- Use `SubmitEvent` for form `onSubmit`, not deprecated `FormEvent` (see `react-events.mdc`).
+- Use `unknown` instead of `any`, then narrow types before use.
+- Keep ESLint enabled unless there is a clear, documented exception.
+- Use `const` by default, and `let` only when reassignment is required, avoid using `var`.
+- Treat React state as immutable: do not mutate state objects or arrays in place.
+- For dynamic lists, use stable unique IDs as React keys; do not use array index as key.
+- Do not store secrets or authentication tokens in `localStorage`; prefer secure, `HttpOnly` cookies.
+- In Node/Express handlers, use non-blocking async I/O and avoid synchronous filesystem operations.

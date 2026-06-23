@@ -6,3 +6,5 @@ backend/public/uploads/
 *.log
 # OS files
 Thumbs.db
+# cursor rule
+.cursor/rules/security-remediation-checklist.mdc

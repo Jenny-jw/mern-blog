@@ -1,0 +1,46 @@
+---
+description: Require considering related tests whenever code is modified
+alwaysApply: false
+---
+
+# Tests When Modifying Code
+
+Whenever you change application code (not docs-only), decide whether tests should be added or updated before finishing.
+
+## When to add or update tests
+
+- New API route, middleware, or auth rule -> add backend tests
+- Bug fix → regression test
+- Behavior change (validation, status codes, roles) → update assertions
+- Refactor only → update tests if fixtures/mocks break
+
+## When tests are optional
+
+- Formatting, comments, renames with no behavior change
+- Lockfiles or config unrelated to logic
+
+## Project conventions
+
+- **Backend (Node/Express):** start with `backend/tests/` and run via an npm script (for example `npm test`).
+- **Frontend (React/Vite):** start with `frontend/vite_blog/tests/` and run via an npm script (for example `npm test`).
+- If a test runner is not set up yet, document manual verification steps in the PR or work log.
+
+## Minimal testing roadmap (when ready)
+
+1. Backend: add `supertest` + a test runner (Vitest or Jest).
+2. Frontend: add Vitest + React Testing Library.
+3. Add `npm test` scripts in both `backend` and `frontend/vite_blog`.
+
+## Suggested first tests
+
+- Backend: `POST /api/auth/login` success/failure and protected route access.
+- Backend: `POST /api/posts` auth enforcement and expected status codes.
+- Frontend: login page submit flow and protected-route redirect behavior.
+
+## Before marking work done
+
+1. Identify what behavior changed.
+2. If tests exist, add/update relevant tests and run them.
+3. If tests do not exist yet, include clear manual verification steps.
+
+If skipping tests, state why briefly (e.g. docs-only).

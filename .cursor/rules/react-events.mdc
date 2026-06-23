@@ -1,0 +1,24 @@
+---
+description: React 19 submit handlers must not use deprecated FormEvent
+globs: frontend/**/*.tsx
+alwaysApply: false
+---
+
+# React 19 — Submit Event Rule
+
+Use `React.SubmitEvent<HTMLFormElement>` (or `SubmitEventHandler`) for `<form onSubmit>`.
+Never use `React.FormEvent<HTMLFormElement>` for submit handlers.
+
+Rule to remember: **Submit uses SubmitEvent**.
+
+```tsx
+// ✅ Good
+const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  e.preventDefault();
+};
+
+// ❌ Bad
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+};
+```

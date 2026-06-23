@@ -1,0 +1,23 @@
+---
+description: Validate required strings safely without trim runtime errors
+globs: frontend/**/*.tsx
+alwaysApply: false
+---
+
+# Required String Validation Rule
+
+For required text fields, keep empty values as `""` and validate safely with `(value ?? "").trim()`.
+
+Avoid calling `.trim()` on maybe-undefined values.
+
+```tsx
+// ✅ Good
+if (!(form.name ?? "").trim()) {
+  errors.name = "Name is required.";
+}
+
+// ❌ Bad
+if (!form.name.trim()) {
+  errors.name = "Name is required.";
+}
+```

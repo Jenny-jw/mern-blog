@@ -10,8 +10,16 @@ dotenv.config();
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-const ADMIN_USERNAME = "takoSan";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const getAdminCredentials = () => {
+  const username = process.env.ADMIN_USERNAME;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!username || !password) {
+    return null;
+  }
+
+  return { username, password };
+};
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -25,10 +33,15 @@ const loginLimiter = rateLimit({
 });
 
 router.post("/login", loginLimiter, (req, res) => {
+  const admin = getAdminCredentials();
+  if (!admin) {
+    return res.status(503).json({ message: "Login unavailable" });
+  }
+
   const { username, password } = req.body;
 
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    const token = jwt.sign({ username }, process.env.JWT_SECRET, {
+  if (username === admin.username && password === admin.password) {
+    const token = jwt.sign({ username: admin.username }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 

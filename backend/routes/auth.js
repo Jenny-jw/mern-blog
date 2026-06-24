@@ -2,6 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import csrf from "csurf";
+import rateLimit from "express-rate-limit";
 import verifyToken from "../middleware/verifyToken.js";
 
 dotenv.config();
@@ -12,7 +13,18 @@ const csrfProtection = csrf({ cookie: true });
 const ADMIN_USERNAME = "takoSan";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-router.post("/login", (req, res) => {
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  skipSuccessfulRequests: true,
+  message: {
+    error: "Too many login attempts. Please try again later.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+router.post("/login", loginLimiter, (req, res) => {
   const { username, password } = req.body;
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {

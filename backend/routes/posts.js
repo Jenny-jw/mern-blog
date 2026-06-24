@@ -1,6 +1,7 @@
 import express from "express";
 import Post from "../models/Post.js";
 import verifyToken from "../middleware/verifyToken.js";
+import { parsePostInput } from "../utils/sanitizePost.js";
 import csrf from "csurf";
 
 const router = express.Router();
@@ -35,12 +36,17 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", verifyToken, csrfProtection, async (req, res) => {
   try {
-    const { title, content, tags, images } = req.body;
+    const parsed = parsePostInput(req.body);
+    if (!parsed.ok) {
+      return res.status(parsed.status).json({ error: parsed.error });
+    }
+
+    const { title, content, tags, images } = parsed.data;
     const newPost = new Post({ title, content, tags, images });
     const savedPost = await newPost.save();
     res.json(savedPost);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: "Failed to create post" });
   }
 });
 

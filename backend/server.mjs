@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 import postRoutes from "./routes/posts.js";
 import uploadRouter from "./routes/upload.js";
 import authRouter from "./routes/auth.js";
@@ -19,10 +20,40 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isProduction = process.env.NODE_ENV === "production";
 
 await connectDB();
 
 app.set("trust proxy", 1);
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "https:"],
+        connectSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
+        fontSrc: ["'self'", "https:", "data:"],
+        frameSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
+        objectSrc: ["'none'"],
+        baseUri: ["'self'"],
+        frameAncestors: ["'none'"],
+        formAction: ["'self'"],
+      },
+    },
+    frameguard: {
+      action: "deny",
+    },
+    hsts: isProduction
+      ? {
+          maxAge: 31536000,
+          includeSubDomains: true,
+          preload: true,
+        }
+      : false,
+  })
+);
 app.use(
   cors({
     origin: "https://mern-blog-y294.onrender.com",

@@ -82,7 +82,6 @@ router.get("/test", verifyToken, (req, res) => {
 });
 
 router.get("/me", verifyToken, (req, res) => {
-  console.log("Cookies:", req.cookies);
   res.json({ username: req.user.username });
 });
 

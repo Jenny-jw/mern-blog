@@ -1,5 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import csrf from "csurf";
 import rateLimit from "express-rate-limit";
@@ -12,13 +13,13 @@ const csrfProtection = csrf({ cookie: true });
 
 const getAdminCredentials = () => {
   const username = process.env.ADMIN_USERNAME;
-  const password = process.env.ADMIN_PASSWORD;
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
 
-  if (!username || !password) {
+  if (!username || !passwordHash) {
     return null;
   }
 
-  return { username, password };
+  return { username, passwordHash };
 };
 
 const loginLimiter = rateLimit({
@@ -32,7 +33,7 @@ const loginLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-router.post("/login", loginLimiter, (req, res) => {
+router.post("/login", loginLimiter, async (req, res) => {
   const admin = getAdminCredentials();
   if (!admin) {
     return res.status(503).json({ message: "Login unavailable" });
@@ -40,22 +41,31 @@ router.post("/login", loginLimiter, (req, res) => {
 
   const { username, password } = req.body;
 
-  if (username === admin.username && password === admin.password) {
-    const token = jwt.sign({ username: admin.username }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      maxAge: 3600000,
-    });
-
-    return res.json({ message: "Login successful" });
+  if (typeof username !== "string" || typeof password !== "string") {
+    return res.status(401).json({ message: "Invalid credentials" });
   }
 
-  return res.status(401).json({ message: "Invalid credentials" });
+  if (username !== admin.username) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const passwordMatch = await bcrypt.compare(password, admin.passwordHash);
+  if (!passwordMatch) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const token = jwt.sign({ username: admin.username }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    maxAge: 3600000,
+  });
+
+  return res.json({ message: "Login successful" });
 });
 
 router.post("/logout", (req, res) => {

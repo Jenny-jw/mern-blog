@@ -21,6 +21,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const isProduction = process.env.NODE_ENV === "production";
+const JSON_BODY_LIMIT = process.env.JSON_BODY_LIMIT || "100kb";
+const URLENCODED_BODY_LIMIT = process.env.URLENCODED_BODY_LIMIT || "100kb";
 
 await connectDB();
 
@@ -64,7 +66,14 @@ app.use(
 );
 
 app.use(cookieParser());
-app.use(express.json());
+app.use(express.json({ limit: JSON_BODY_LIMIT }));
+app.use(
+  express.urlencoded({
+    extended: false,
+    limit: URLENCODED_BODY_LIMIT,
+    parameterLimit: 100,
+  })
+);
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/posts", postRoutes);

@@ -1,13 +1,19 @@
 import express from "express";
 import Post from "../models/Post.js";
 import verifyToken from "../middleware/verifyToken.js";
+import validateRequest from "../middleware/validateRequest.js";
 import { parsePostInput } from "../utils/sanitizePost.js";
+import {
+  createPostBodySchema,
+  postIdParamSchema,
+  postsListQuerySchema,
+} from "../validation/schemas.js";
 import csrf from "csurf";
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-router.get("/", async (req, res) => {
+router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, res) => {
   const { tag, sort = "desc" } = req.query;
   try {
     const tagFilter = tag ? { tags: tag } : {};
@@ -19,7 +25,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", validateRequest({ params: postIdParamSchema }), async (req, res) => {
   try {
     const post = await Post.findByIdAndUpdate(
       req.params.id,
@@ -34,7 +40,12 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", verifyToken, csrfProtection, async (req, res) => {
+router.post(
+  "/",
+  verifyToken,
+  csrfProtection,
+  validateRequest({ body: createPostBodySchema }),
+  async (req, res) => {
   try {
     const parsed = parsePostInput(req.body);
     if (!parsed.ok) {

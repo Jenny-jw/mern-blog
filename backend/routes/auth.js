@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import csrf from "csurf";
 import rateLimit from "express-rate-limit";
 import verifyToken from "../middleware/verifyToken.js";
+import validateRequest from "../middleware/validateRequest.js";
+import { loginBodySchema } from "../validation/schemas.js";
 
 dotenv.config();
 
@@ -39,17 +41,13 @@ const loginLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-router.post("/login", loginLimiter, async (req, res) => {
+router.post("/login", loginLimiter, validateRequest({ body: loginBodySchema }), async (req, res) => {
   const admin = getAdminCredentials();
   if (!admin) {
     return res.status(503).json({ message: "Login unavailable" });
   }
 
   const { username, password } = req.body;
-
-  if (typeof username !== "string" || typeof password !== "string") {
-    return res.status(401).json({ message: "Invalid credentials" });
-  }
 
   if (username !== admin.username) {
     return res.status(401).json({ message: "Invalid credentials" });

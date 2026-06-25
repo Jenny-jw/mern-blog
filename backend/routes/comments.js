@@ -6,6 +6,12 @@ import sanitizeHtml from "sanitize-html";
 import rateLimit from "express-rate-limit";
 import csrf from "csurf";
 import axios from "axios";
+import validateRequest from "../middleware/validateRequest.js";
+import {
+  commentIdParamSchema,
+  createCommentBodySchema,
+  postIdForCommentsParamSchema,
+} from "../validation/schemas.js";
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
@@ -30,7 +36,11 @@ const commentLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-router.post("/", commentLimiter, async (req, res) => {
+router.post(
+  "/",
+  commentLimiter,
+  validateRequest({ body: createCommentBodySchema }),
+  async (req, res) => {
   try {
     const rawName = String(req.body.name || "").trim();
     const rawContent = String(req.body.content || "").trim();
@@ -103,7 +113,10 @@ router.get("/pendingComments", verifyToken, async (req, res) => {
   }
 });
 
-router.get("/approvedComments/:postId", async (req, res) => {
+router.get(
+  "/approvedComments/:postId",
+  validateRequest({ params: postIdForCommentsParamSchema }),
+  async (req, res) => {
   try {
     const { postId } = req.params;
     const comments = await Comment.find({
@@ -121,7 +134,12 @@ router.get("/approvedComments/:postId", async (req, res) => {
   }
 });
 
-router.patch("/:id/approve", verifyToken, csrfProtection, async (req, res) => {
+router.patch(
+  "/:id/approve",
+  verifyToken,
+  csrfProtection,
+  validateRequest({ params: commentIdParamSchema }),
+  async (req, res) => {
   try {
     const comments = await Comment.findByIdAndUpdate(
       req.params.id,
@@ -137,7 +155,12 @@ router.patch("/:id/approve", verifyToken, csrfProtection, async (req, res) => {
   }
 });
 
-router.delete("/:id", verifyToken, csrfProtection, async (req, res) => {
+router.delete(
+  "/:id",
+  verifyToken,
+  csrfProtection,
+  validateRequest({ params: commentIdParamSchema }),
+  async (req, res) => {
   try {
     const comment = await Comment.findByIdAndDelete(req.params.id);
     if (!comment) return res.status(404).json({ error: "Cannot find comment" });

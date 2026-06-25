@@ -10,6 +10,12 @@ dotenv.config();
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
+const TOKEN_COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "None",
+  path: "/",
+};
 
 const getAdminCredentials = () => {
   const username = process.env.ADMIN_USERNAME;
@@ -59,9 +65,7 @@ router.post("/login", loginLimiter, async (req, res) => {
   });
 
   res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "None",
+    ...TOKEN_COOKIE_OPTIONS,
     maxAge: 3600000,
   });
 
@@ -69,7 +73,7 @@ router.post("/login", loginLimiter, async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", TOKEN_COOKIE_OPTIONS);
   res.json({ message: "Logged out" });
 });
 

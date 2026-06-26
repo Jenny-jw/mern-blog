@@ -53,7 +53,7 @@ const handleUpload = (req, res, next) => {
   });
 };
 
-router.post("/", verifyToken, handleUpload, async (req, res) => {
+router.post("/", verifyToken, handleUpload, async (req, res, next) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
   try {
@@ -73,7 +73,7 @@ router.post("/", verifyToken, handleUpload, async (req, res) => {
     res.json({ url: result.secure_url });
   } catch (err) {
     console.error("Cloudinary upload failed", err);
-    res.status(500).json({ error: "Upload failed" });
+    next(err);
   }
 });
 

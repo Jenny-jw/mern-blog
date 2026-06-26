@@ -6,6 +6,7 @@ import uploadRouter from "./routes/upload.js";
 import authRouter from "./routes/auth.js";
 import commentsRouter from "./routes/comments.js";
 import verifyToken from "./middleware/verifyToken.js";
+import errorHandler from "./middleware/errorHandler.js";
 import connectDB from "./db.js";
 import dotenv from "dotenv";
 import path from "path";
@@ -83,9 +84,13 @@ app.use("/api/auth", authRouter);
 app.use("/api/protected", verifyToken, (req, res) => {
   res.json({ message: `Hello ${req.user.username}, this is protexted.` });
 });
+app.use("/api", (_req, res) => {
+  res.status(404).json({ error: "API route not found" });
+});
 app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

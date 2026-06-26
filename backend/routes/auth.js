@@ -41,33 +41,37 @@ const loginLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-router.post("/login", loginLimiter, validateRequest({ body: loginBodySchema }), async (req, res) => {
-  const admin = getAdminCredentials();
-  if (!admin) {
-    return res.status(503).json({ message: "Login unavailable" });
+router.post("/login", loginLimiter, validateRequest({ body: loginBodySchema }), async (req, res, next) => {
+  try {
+    const admin = getAdminCredentials();
+    if (!admin) {
+      return res.status(503).json({ message: "Login unavailable" });
+    }
+
+    const { username, password } = req.body;
+
+    if (username !== admin.username) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, admin.passwordHash);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    const token = jwt.sign({ username: admin.username }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("token", token, {
+      ...TOKEN_COOKIE_OPTIONS,
+      maxAge: 3600000,
+    });
+
+    return res.json({ message: "Login successful" });
+  } catch (err) {
+    next(err);
   }
-
-  const { username, password } = req.body;
-
-  if (username !== admin.username) {
-    return res.status(401).json({ message: "Invalid credentials" });
-  }
-
-  const passwordMatch = await bcrypt.compare(password, admin.passwordHash);
-  if (!passwordMatch) {
-    return res.status(401).json({ message: "Invalid credentials" });
-  }
-
-  const token = jwt.sign({ username: admin.username }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
-
-  res.cookie("token", token, {
-    ...TOKEN_COOKIE_OPTIONS,
-    maxAge: 3600000,
-  });
-
-  return res.json({ message: "Login successful" });
 });
 
 router.post("/logout", (req, res) => {

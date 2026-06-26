@@ -13,7 +13,7 @@ import csrf from "csurf";
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
-router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, res) => {
+router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, res, next) => {
   const { tag, sort = "desc" } = req.query;
   try {
     const tagFilter = tag ? { tags: tag } : {};
@@ -21,11 +21,11 @@ router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, re
     const posts = await Post.find(tagFilter).sort({ createAt: sortOrder });
     res.json(posts);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch posts" });
+    next(err);
   }
 });
 
-router.get("/:id", validateRequest({ params: postIdParamSchema }), async (req, res) => {
+router.get("/:id", validateRequest({ params: postIdParamSchema }), async (req, res, next) => {
   try {
     const post = await Post.findByIdAndUpdate(
       req.params.id,
@@ -36,7 +36,7 @@ router.get("/:id", validateRequest({ params: postIdParamSchema }), async (req, r
       return res.status(404).json({ error: "Cannot find the article" });
     res.json(post);
   } catch (err) {
-    res.status(500).json({ error: "Server error." });
+    next(err);
   }
 });
 
@@ -45,7 +45,7 @@ router.post(
   verifyToken,
   csrfProtection,
   validateRequest({ body: createPostBodySchema }),
-  async (req, res) => {
+  async (req, res, next) => {
   try {
     const parsed = parsePostInput(req.body);
     if (!parsed.ok) {
@@ -57,7 +57,7 @@ router.post(
     const savedPost = await newPost.save();
     res.json(savedPost);
   } catch (err) {
-    res.status(500).json({ error: "Failed to create post" });
+    next(err);
   }
 });
 

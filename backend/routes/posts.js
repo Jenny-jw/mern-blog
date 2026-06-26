@@ -14,7 +14,7 @@ const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
 
 router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, res, next) => {
-  const { tag, sort = "desc" } = req.query;
+  const { tag, sort = "desc" } = req.validated.query;
   try {
     const tagFilter = tag ? { tags: tag } : {};
     const sortOrder = sort === "asc" ? 1 : -1;
@@ -28,7 +28,7 @@ router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, re
 router.get("/:id", validateRequest({ params: postIdParamSchema }), async (req, res, next) => {
   try {
     const post = await Post.findByIdAndUpdate(
-      req.params.id,
+      req.validated.params.id,
       { $inc: { views: 1 } },
       { new: true }
     );
@@ -47,7 +47,7 @@ router.post(
   validateRequest({ body: createPostBodySchema }),
   async (req, res, next) => {
   try {
-    const parsed = parsePostInput(req.body);
+    const parsed = parsePostInput(req.validated.body);
     if (!parsed.ok) {
       return res.status(parsed.status).json({ error: parsed.error });
     }

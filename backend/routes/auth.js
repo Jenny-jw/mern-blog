@@ -48,7 +48,7 @@ router.post("/login", loginLimiter, validateRequest({ body: loginBodySchema }), 
       return res.status(503).json({ message: "Login unavailable" });
     }
 
-    const { username, password } = req.body;
+    const { username, password } = req.validated.body;
 
     if (username !== admin.username) {
       return res.status(401).json({ message: "Invalid credentials" });

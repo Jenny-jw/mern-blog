@@ -5,6 +5,8 @@ const formatIssues = (issues) =>
   }));
 
 const validateRequest = (schemas) => (req, res, next) => {
+  req.validated = req.validated || {};
+
   for (const target of ["params", "query", "body"]) {
     const schema = schemas[target];
     if (!schema) continue;
@@ -17,7 +19,7 @@ const validateRequest = (schemas) => (req, res, next) => {
       });
     }
 
-    req[target] = result.data;
+    req.validated[target] = result.data;
   }
 
   next();

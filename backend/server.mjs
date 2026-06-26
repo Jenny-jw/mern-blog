@@ -24,8 +24,21 @@ const PORT = process.env.PORT || 3000;
 const isProduction = process.env.NODE_ENV === "production";
 const JSON_BODY_LIMIT = process.env.JSON_BODY_LIMIT || "100kb";
 const URLENCODED_BODY_LIMIT = process.env.URLENCODED_BODY_LIMIT || "100kb";
+const allowedOrigins = (
+  process.env.ALLOWED_ORIGINS ||
+  "https://mern-blog-y294.onrender.com,https://takosnote.onrender.com"
+)
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 await connectDB();
+
+if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD_HASH) {
+  console.warn(
+    "[auth] ADMIN_USERNAME or ADMIN_PASSWORD_HASH is missing; login will return 503"
+  );
+}
 
 app.set("trust proxy", 1);
 app.use(
@@ -34,10 +47,19 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+        ],
+        styleSrcElem: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://fonts.googleapis.com",
+        ],
         imgSrc: ["'self'", "data:", "https:"],
         connectSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
-        fontSrc: ["'self'", "https:", "data:"],
+        fontSrc: ["'self'", "https:", "data:", "https://fonts.gstatic.com"],
         frameSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
         objectSrc: ["'none'"],
         baseUri: ["'self'"],
@@ -59,7 +81,13 @@ app.use(
 );
 app.use(
   cors({
-    origin: "https://mern-blog-y294.onrender.com",
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     optionsSuccessStatus: 200,

@@ -42,8 +42,8 @@ router.post(
   validateRequest({ body: createCommentBodySchema }),
   async (req, res, next) => {
   try {
-    const rawName = String(req.body.name || "").trim();
-    const rawContent = String(req.body.content || "").trim();
+    const rawName = String(req.validated.body.name || "").trim();
+    const rawContent = String(req.validated.body.content || "").trim();
     const name = sanitizeHtml(rawName, {
       allowedTags: [],
       allowedAttributes: {},
@@ -52,7 +52,7 @@ router.post(
       allowedTags: [],
       allowedAttributes: {},
     }).trim();
-    const { avatar, isPublic, post, recaptchaToken } = req.body;
+    const { avatar, isPublic, post, recaptchaToken } = req.validated.body;
 
     if (!recaptchaToken) {
       return res.status(400).json({ error: "缺少驗證碼" });
@@ -95,7 +95,7 @@ router.post(
     await comment.save();
     res.status(201).json({ message: "留言成功~ 等待審核" });
   } catch (err) {
-    logRouteError("create comment failed", err, { hasPost: Boolean(req.body?.post) });
+    logRouteError("create comment failed", err, { hasPost: Boolean(req.validated?.body?.post) });
     next(err);
   }
 });
@@ -118,7 +118,7 @@ router.get(
   validateRequest({ params: postIdForCommentsParamSchema }),
   async (req, res, next) => {
   try {
-    const { postId } = req.params;
+    const { postId } = req.validated.params;
     const comments = await Comment.find({
       post: postId,
       approved: true,
@@ -127,7 +127,7 @@ router.get(
     });
     res.json(comments);
   } catch (err) {
-    logRouteError("read approved comments failed", err, { postId: req.params?.postId });
+    logRouteError("read approved comments failed", err, { postId: req.validated?.params?.postId });
     next(err);
   }
 });
@@ -140,7 +140,7 @@ router.patch(
   async (req, res, next) => {
   try {
     const comments = await Comment.findByIdAndUpdate(
-      req.params.id,
+      req.validated.params.id,
       { approved: true },
       { new: true }
     );
@@ -148,7 +148,7 @@ router.patch(
       return res.status(400).json({ error: "Cannot find this comment" });
     res.json({ message: "Comment is arrpoved", comment });
   } catch (err) {
-    logRouteError("approve comment failed", err, { commentId: req.params?.id });
+    logRouteError("approve comment failed", err, { commentId: req.validated?.params?.id });
     next(err);
   }
 });
@@ -160,11 +160,11 @@ router.delete(
   validateRequest({ params: commentIdParamSchema }),
   async (req, res, next) => {
   try {
-    const comment = await Comment.findByIdAndDelete(req.params.id);
+    const comment = await Comment.findByIdAndDelete(req.validated.params.id);
     if (!comment) return res.status(404).json({ error: "Cannot find comment" });
     res.json({ message: "Message has been deleted" });
   } catch (err) {
-    logRouteError("delete comment failed", err, { commentId: req.params?.id });
+    logRouteError("delete comment failed", err, { commentId: req.validated?.params?.id });
     next(err);
   }
 });

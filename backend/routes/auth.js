@@ -6,12 +6,14 @@ import csrf from "csurf";
 import rateLimit from "express-rate-limit";
 import verifyToken from "../middleware/verifyToken.js";
 import validateRequest from "../middleware/validateRequest.js";
+import { logRouteError } from "../utils/safeLogger.js";
 import { loginBodySchema } from "../validation/schemas.js";
 
 dotenv.config();
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
+const ROUTE = "auth";
 const TOKEN_COOKIE_OPTIONS = {
   httpOnly: true,
   secure: true,
@@ -70,6 +72,7 @@ router.post("/login", loginLimiter, validateRequest({ body: loginBodySchema }), 
 
     return res.json({ message: "Login successful" });
   } catch (err) {
+    logRouteError(ROUTE, "login failed", err);
     next(err);
   }
 });

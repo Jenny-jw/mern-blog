@@ -3,6 +3,7 @@ import Post from "../models/Post.js";
 import verifyToken from "../middleware/verifyToken.js";
 import validateRequest from "../middleware/validateRequest.js";
 import { parsePostInput } from "../utils/sanitizePost.js";
+import { logRouteError } from "../utils/safeLogger.js";
 import {
   createPostBodySchema,
   postIdParamSchema,
@@ -12,6 +13,7 @@ import csrf from "csurf";
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
+const ROUTE = "posts";
 
 router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, res, next) => {
   const { tag, sort = "desc" } = req.validated.query;
@@ -21,6 +23,7 @@ router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, re
     const posts = await Post.find(tagFilter).sort({ createAt: sortOrder });
     res.json(posts);
   } catch (err) {
+    logRouteError(ROUTE, "list posts failed", err, { tag, sort });
     next(err);
   }
 });
@@ -36,6 +39,9 @@ router.get("/:id", validateRequest({ params: postIdParamSchema }), async (req, r
       return res.status(404).json({ error: "Cannot find the article" });
     res.json(post);
   } catch (err) {
+    logRouteError(ROUTE, "get post failed", err, {
+      postId: req.validated?.params?.id,
+    });
     next(err);
   }
 });
@@ -57,6 +63,7 @@ router.post(
     const savedPost = await newPost.save();
     res.json(savedPost);
   } catch (err) {
+    logRouteError(ROUTE, "create post failed", err);
     next(err);
   }
 });

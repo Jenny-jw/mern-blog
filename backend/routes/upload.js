@@ -3,8 +3,10 @@ import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import streamifier from "streamifier";
 import verifyToken from "../middleware/verifyToken.js";
+import { logRouteError } from "../utils/safeLogger.js";
 
 const router = express.Router();
+const ROUTE = "upload";
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/jpeg",
@@ -72,7 +74,10 @@ router.post("/", verifyToken, handleUpload, async (req, res, next) => {
     const result = await streamUpload(req.file.buffer);
     res.json({ url: result.secure_url });
   } catch (err) {
-    console.error("Cloudinary upload failed", err);
+    logRouteError(ROUTE, "cloudinary upload failed", err, {
+      mimeType: req.file?.mimetype,
+      fileSize: req.file?.size,
+    });
     next(err);
   }
 });

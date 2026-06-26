@@ -1,3 +1,5 @@
+import { logRequestError } from "../utils/safeLogger.js";
+
 const errorHandler = (err, req, res, _next) => {
   if (res.headersSent) {
     return;
@@ -12,13 +14,7 @@ const errorHandler = (err, req, res, _next) => {
     statusCode >= 500 ? "Internal server error" : err?.message || "Request failed";
 
   if (statusCode >= 500) {
-    console.error("[api] unhandled error", {
-      method: req.method,
-      path: req.originalUrl,
-      name: err?.name,
-      code: err?.code,
-      message: err?.message,
-    });
+    logRequestError(req, err);
   }
 
   return res.status(statusCode).json({ error: safeMessage });

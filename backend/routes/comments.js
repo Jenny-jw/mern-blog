@@ -7,6 +7,7 @@ import rateLimit from "express-rate-limit";
 import csrf from "csurf";
 import axios from "axios";
 import validateRequest from "../middleware/validateRequest.js";
+import { logRouteError } from "../utils/safeLogger.js";
 import {
   commentIdParamSchema,
   createCommentBodySchema,
@@ -15,16 +16,7 @@ import {
 
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
-const logRouteError = (scope, err, extra = {}) => {
-  const safeDetails = {
-    name: err?.name,
-    code: err?.code,
-    message: err?.message,
-    status: err?.response?.status,
-    ...extra,
-  };
-  console.error(`[comments] ${scope}`, safeDetails);
-};
+const ROUTE = "comments";
 
 const commentLimiter = rateLimit({
   windowMs: 60 * 1000,
@@ -79,7 +71,7 @@ router.post(
         return res.status(403).json({ error: "驗證失敗" });
       }
     } catch (err) {
-      logRouteError("recaptcha verify failed", err);
+      logRouteError(ROUTE, "recaptcha verify failed", err);
       return res.status(500).json({ error: "驗證服務錯誤" });
     }
 
@@ -95,7 +87,9 @@ router.post(
     await comment.save();
     res.status(201).json({ message: "留言成功~ 等待審核" });
   } catch (err) {
-    logRouteError("create comment failed", err, { hasPost: Boolean(req.validated?.body?.post) });
+    logRouteError(ROUTE, "create comment failed", err, {
+      hasPost: Boolean(req.validated?.body?.post),
+    });
     next(err);
   }
 });
@@ -108,7 +102,7 @@ router.get("/pendingComments", verifyToken, async (req, res, next) => {
 
     res.json(comments);
   } catch (err) {
-    logRouteError("read pending comments failed", err);
+    logRouteError(ROUTE, "read pending comments failed", err);
     next(err);
   }
 });
@@ -127,7 +121,9 @@ router.get(
     });
     res.json(comments);
   } catch (err) {
-    logRouteError("read approved comments failed", err, { postId: req.validated?.params?.postId });
+    logRouteError(ROUTE, "read approved comments failed", err, {
+      postId: req.validated?.params?.postId,
+    });
     next(err);
   }
 });
@@ -148,7 +144,9 @@ router.patch(
       return res.status(400).json({ error: "Cannot find this comment" });
     res.json({ message: "Comment is arrpoved", comment });
   } catch (err) {
-    logRouteError("approve comment failed", err, { commentId: req.validated?.params?.id });
+    logRouteError(ROUTE, "approve comment failed", err, {
+      commentId: req.validated?.params?.id,
+    });
     next(err);
   }
 });
@@ -164,7 +162,9 @@ router.delete(
     if (!comment) return res.status(404).json({ error: "Cannot find comment" });
     res.json({ message: "Message has been deleted" });
   } catch (err) {
-    logRouteError("delete comment failed", err, { commentId: req.validated?.params?.id });
+    logRouteError(ROUTE, "delete comment failed", err, {
+      commentId: req.validated?.params?.id,
+    });
     next(err);
   }
 });

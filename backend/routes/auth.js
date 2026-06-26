@@ -2,8 +2,8 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import csrf from "csurf";
 import rateLimit from "express-rate-limit";
+import { generateCsrfToken } from "../middleware/csrfProtection.js";
 import verifyToken from "../middleware/verifyToken.js";
 import validateRequest from "../middleware/validateRequest.js";
 import { logRouteError } from "../utils/safeLogger.js";
@@ -12,7 +12,6 @@ import { loginBodySchema } from "../validation/schemas.js";
 dotenv.config();
 
 const router = express.Router();
-const csrfProtection = csrf({ cookie: true });
 const ROUTE = "auth";
 const TOKEN_COOKIE_OPTIONS = {
   httpOnly: true,
@@ -90,8 +89,8 @@ router.get("/me", verifyToken, (req, res) => {
   res.json({ username: req.user.username });
 });
 
-router.get("/csrf-token", csrfProtection, (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
+router.get("/csrf-token", (req, res) => {
+  res.json({ csrfToken: generateCsrfToken(req, res) });
 });
 
 const authRouter = router;

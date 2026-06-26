@@ -4,7 +4,7 @@ import verifyToken from "../middleware/verifyToken.js";
 import { comment } from "postcss";
 import sanitizeHtml from "sanitize-html";
 import rateLimit from "express-rate-limit";
-import csrf from "csurf";
+import { doubleCsrfProtection } from "../middleware/csrfProtection.js";
 import axios from "axios";
 import validateRequest from "../middleware/validateRequest.js";
 import { logRouteError } from "../utils/safeLogger.js";
@@ -15,7 +15,6 @@ import {
 } from "../validation/schemas.js";
 
 const router = express.Router();
-const csrfProtection = csrf({ cookie: true });
 const ROUTE = "comments";
 
 const commentLimiter = rateLimit({
@@ -131,7 +130,7 @@ router.get(
 router.patch(
   "/:id/approve",
   verifyToken,
-  csrfProtection,
+  doubleCsrfProtection,
   validateRequest({ params: commentIdParamSchema }),
   async (req, res, next) => {
   try {
@@ -154,7 +153,7 @@ router.patch(
 router.delete(
   "/:id",
   verifyToken,
-  csrfProtection,
+  doubleCsrfProtection,
   validateRequest({ params: commentIdParamSchema }),
   async (req, res, next) => {
   try {

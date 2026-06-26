@@ -9,10 +9,9 @@ import {
   postIdParamSchema,
   postsListQuerySchema,
 } from "../validation/schemas.js";
-import csrf from "csurf";
+import { doubleCsrfProtection } from "../middleware/csrfProtection.js";
 
 const router = express.Router();
-const csrfProtection = csrf({ cookie: true });
 const ROUTE = "posts";
 
 router.get("/", validateRequest({ query: postsListQuerySchema }), async (req, res, next) => {
@@ -49,7 +48,7 @@ router.get("/:id", validateRequest({ params: postIdParamSchema }), async (req, r
 router.post(
   "/",
   verifyToken,
-  csrfProtection,
+  doubleCsrfProtection,
   validateRequest({ body: createPostBodySchema }),
   async (req, res, next) => {
   try {

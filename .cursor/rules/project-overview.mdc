@@ -11,7 +11,7 @@ Personal MERN blog system with article publishing, comment moderation, tag filte
 
 **Frontend:** React 19, Vite 6, React Router 7, TipTap editor, Axios, date-fns, Tailwind CSS, reCAPTCHA
 
-**Backend:** Node.js (ESM), Express 5, Mongoose, JWT (cookie-based auth), cookie-parser, CORS, csurf, express-rate-limit, sanitize-html, multer + Cloudinary
+**Backend:** Node.js (ESM), Express 5, Mongoose, JWT (cookie-based auth), cookie-parser, CORS, csrf-csrf, express-rate-limit, sanitize-html, multer + Cloudinary
 
 **Database:** MongoDB (posts, comments; timestamps and moderation workflow)
 

@@ -13,6 +13,10 @@ const errorHandler = (err, req, res, _next) => {
     return res.status(403).json({ error: "Invalid CSRF token" });
   }
 
+  if (err.message === "Not allowed by CORS") {
+    return res.status(403).json({ error: "Not allowed by CORS" });
+  }
+
   const statusCode = Number.isInteger(err?.statusCode) ? err.statusCode : 500;
   const safeMessage =
     statusCode >= 500 ? "Internal server error" : err?.message || "Request failed";

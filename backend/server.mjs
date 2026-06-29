@@ -13,6 +13,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import cookieParser from "cookie-parser";
+import {
+  createCorsOriginValidator,
+  getAllowedOrigins,
+  logCorsConfig,
+} from "./config/corsOrigins.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -24,13 +29,7 @@ const PORT = process.env.PORT || 3000;
 const isProduction = process.env.NODE_ENV === "production";
 const JSON_BODY_LIMIT = process.env.JSON_BODY_LIMIT || "100kb";
 const URLENCODED_BODY_LIMIT = process.env.URLENCODED_BODY_LIMIT || "100kb";
-const allowedOrigins = (
-  process.env.ALLOWED_ORIGINS ||
-  "https://mern-blog-y294.onrender.com,https://takosnote.onrender.com"
-)
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+const corsConfig = getAllowedOrigins();
 
 await connectDB();
 
@@ -39,6 +38,8 @@ if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD_HASH) {
     "[auth] ADMIN_USERNAME or ADMIN_PASSWORD_HASH is missing; login will return 503"
   );
 }
+
+logCorsConfig(corsConfig);
 
 app.set("trust proxy", 1);
 app.use(
@@ -81,15 +82,9 @@ app.use(
 );
 app.use(
   cors({
-    origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-        return;
-      }
-      callback(new Error("Not allowed by CORS"));
-    },
+    origin: createCorsOriginValidator(corsConfig.origins),
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     optionsSuccessStatus: 200,
   })
 );

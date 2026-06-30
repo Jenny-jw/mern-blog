@@ -120,16 +120,16 @@ const Home = () => {
           <div>
             <h4>最近喜歡的動畫 如果你最近不知道看什麼 就從這裡挑吧 😋</h4>
             <ul>
+              <li className="cherryBlossom">
+                劇場版「モノノ怪」(Mononoke) 畫風好美，3D與每個場景都畫得好精緻
+              </li>
               <li className="flower">
                 City the Animation
                 超級好看！每一集都好好笑，什麼時候才有第二季？
               </li>
               <li className="cherryBlossom">
-                Made in Abyss 也是讓人想一集集追下去的 ✨
-                畫風很精緻，背景音樂也很棒；
-              </li>
-              <li className="flower">
-                Ranking of Kings 的故事滿特別的，背景音樂很不錯、但畫風還好
+                Made in Abyss 讓人想一集集追下去的 ✨
+                畫風很可愛、故事很特別，背景音樂也很棒；
               </li>
             </ul>
           </div>

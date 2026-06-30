@@ -5,7 +5,7 @@ import { ServiceError } from "../errors/ServiceError.js";
 export const listPosts = async ({ tag, sort = "desc" }) => {
   const tagFilter = tag ? { tags: tag } : {};
   const sortOrder = sort === "asc" ? 1 : -1;
-  return Post.find(tagFilter).sort({ createAt: sortOrder });
+  return Post.find(tagFilter).sort({ createdAt: sortOrder });
 };
 
 export const getPostById = async (id) => {

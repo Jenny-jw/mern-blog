@@ -114,7 +114,7 @@ const SinglePost = () => {
           <h1 className="text-2xl font-bold">{post.title}</h1>
           <div className="flex flex-wrap justify-center items-center gap-4">
             <h2 className="text-base">
-              {format(new Date(post.createAt), "yyyy / MM / dd")}
+              {format(new Date(post.createdAt), "yyyy / MM / dd")}
             </h2>
             <h3>文章拜訪次數：{post.views}</h3>
           </div>

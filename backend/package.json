@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.mjs",
+    "migrate:post-created-at": "node scripts/migrate-post-createdAt.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jenny",

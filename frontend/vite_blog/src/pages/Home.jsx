@@ -129,7 +129,7 @@ const Home = () => {
               </li>
               <li className="cherryBlossom">
                 Made in Abyss 讓人想一集集追下去的 ✨
-                畫風很可愛、故事很特別，背景音樂也很棒；
+                畫風很可愛、故事很特別，背景音樂也很棒
               </li>
             </ul>
           </div>

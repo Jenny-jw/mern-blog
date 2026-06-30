@@ -1,35 +1,14 @@
 import express from "express";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
-import { generateCsrfToken } from "../middleware/csrfProtection.js";
 import verifyToken from "../middleware/verifyToken.js";
 import validateRequest from "../middleware/validateRequest.js";
-import { logRouteError } from "../utils/safeLogger.js";
+import * as authController from "../controllers/authController.js";
 import { loginBodySchema } from "../validation/schemas.js";
 
 dotenv.config();
 
 const router = express.Router();
-const ROUTE = "auth";
-const TOKEN_COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: true,
-  sameSite: "None",
-  path: "/",
-};
-
-const getAdminCredentials = () => {
-  const username = process.env.ADMIN_USERNAME;
-  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
-
-  if (!username || !passwordHash) {
-    return null;
-  }
-
-  return { username, passwordHash };
-};
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -42,56 +21,16 @@ const loginLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-router.post("/login", loginLimiter, validateRequest({ body: loginBodySchema }), async (req, res, next) => {
-  try {
-    const admin = getAdminCredentials();
-    if (!admin) {
-      return res.status(503).json({ message: "Login unavailable" });
-    }
+router.post(
+  "/login",
+  loginLimiter,
+  validateRequest({ body: loginBodySchema }),
+  authController.login
+);
 
-    const { username, password } = req.validated.body;
+router.post("/logout", authController.logout);
+router.get("/test", verifyToken, authController.test);
+router.get("/me", verifyToken, authController.me);
+router.get("/csrf-token", authController.csrfToken);
 
-    if (username !== admin.username) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
-
-    const passwordMatch = await bcrypt.compare(password, admin.passwordHash);
-    if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
-
-    const token = jwt.sign({ username: admin.username }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    res.cookie("token", token, {
-      ...TOKEN_COOKIE_OPTIONS,
-      maxAge: 3600000,
-    });
-
-    return res.json({ message: "Login successful" });
-  } catch (err) {
-    logRouteError(ROUTE, "login failed", err);
-    next(err);
-  }
-});
-
-router.post("/logout", (req, res) => {
-  res.clearCookie("token", TOKEN_COOKIE_OPTIONS);
-  res.json({ message: "Logged out" });
-});
-
-router.get("/test", verifyToken, (req, res) => {
-  res.json({ success: true, user: req.user });
-});
-
-router.get("/me", verifyToken, (req, res) => {
-  res.json({ username: req.user.username });
-});
-
-router.get("/csrf-token", (req, res) => {
-  res.json({ csrfToken: generateCsrfToken(req, res) });
-});
-
-const authRouter = router;
-export default authRouter;
+export default router;

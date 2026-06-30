@@ -18,6 +18,10 @@ import {
   getAllowedOrigins,
   logCorsConfig,
 } from "./config/corsOrigins.js";
+import {
+  getHelmetContentSecurityPolicy,
+  logContentSecurityPolicyConfig,
+} from "./config/contentSecurityPolicy.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,34 +44,12 @@ if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD_HASH) {
 }
 
 logCorsConfig(corsConfig);
+logContentSecurityPolicyConfig({ isProduction });
 
 app.set("trust proxy", 1);
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "https://fonts.googleapis.com",
-        ],
-        styleSrcElem: [
-          "'self'",
-          "'unsafe-inline'",
-          "https://fonts.googleapis.com",
-        ],
-        imgSrc: ["'self'", "data:", "https:"],
-        connectSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
-        fontSrc: ["'self'", "https:", "data:", "https://fonts.gstatic.com"],
-        frameSrc: ["'self'", "https://www.google.com", "https://www.gstatic.com"],
-        objectSrc: ["'none'"],
-        baseUri: ["'self'"],
-        frameAncestors: ["'none'"],
-        formAction: ["'self'"],
-      },
-    },
+    contentSecurityPolicy: getHelmetContentSecurityPolicy({ isProduction }),
     frameguard: {
       action: "deny",
     },

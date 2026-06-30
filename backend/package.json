@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.mjs",
     "migrate:post-created-at": "node scripts/migrate-post-createdAt.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "author": "Jenny",
   "license": "ISC",
@@ -31,5 +32,9 @@
     "sanitize-html": "^2.17.5",
     "streamifier": "^0.1.1",
     "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.4",
+    "vitest": "^3.2.4"
   }
 }

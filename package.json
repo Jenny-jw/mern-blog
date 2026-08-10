@@ -1,6 +1,14 @@
 {
-  "dependencies": {
-    "helmet": "^8.2.0",
-    "zod": "^4.4.3"
+  "name": "mern-blog",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Root scripts for local full-stack development",
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run start --prefix backend\" \"npm run dev --prefix frontend/vite_blog\"",
+    "dev:backend": "npm run start --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend/vite_blog"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
   }
 }

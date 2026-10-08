@@ -8,3 +8,5 @@ backend/public/uploads/
 Thumbs.db
 # cursor rule
 .cursor/rules/security-remediation-checklist.mdc
+# Personal local docs (not published with the repo)
+QUICKSTART.local.md

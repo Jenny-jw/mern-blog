@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.mjs",
+    "build": "npm run build:render --prefix ..",
     "migrate:post-created-at": "node scripts/migrate-post-createdAt.mjs",
     "test": "vitest run",
     "test:watch": "vitest"

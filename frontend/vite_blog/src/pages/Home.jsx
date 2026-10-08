@@ -64,7 +64,7 @@ const Home = () => {
             <br />
             這裡是我記錄生活片段的小角落 ✒️
             <br />
-            我寫文章的速度很慢，但還是別忘了偶爾回來逛逛 <br />
+            我寫文章很慢，但還是能偶爾回來逛逛喔 <br />
           </div>
           <img
             className="w-20 h-auto object-contain"
@@ -121,15 +121,13 @@ const Home = () => {
             <h4>最近喜歡的動畫 如果你最近不知道看什麼 就從這裡挑吧 😋</h4>
             <ul>
               <li className="cherryBlossom">
-                劇場版「モノノ怪」(Mononoke) 畫風好美，3D與每個場景都畫得好精緻
+                劇場版「モノノ怪」(Mononoke) 畫風好美、3D與每個場景都畫得好精緻
               </li>
               <li className="flower">
-                City the Animation
-                超級好看！每一集都好好笑，什麼時候才有第二季？
+                City the Animation 超級好看！每一集都好好笑，期待未來有第二季~
               </li>
               <li className="cherryBlossom">
-                Made in Abyss 讓人想一集集追下去的 ✨
-                畫風很可愛、故事很特別，背景音樂也很棒
+                Made in Abyss 畫風很可愛、故事很特別，背景音樂也很棒 ✨
               </li>
             </ul>
           </div>
@@ -153,23 +151,20 @@ const Home = () => {
             <li className="flower">
               看書~ 總是覺得我的書不夠、有好多想買的書、但總是讀不完書櫃裡的書
               <ul>
-                <li className="star">楊双子的台灣漫遊錄 (最近搭火車喜歡看)</li>
                 <li className="star">
-                  哥本哈根三部曲（The Copenhagen Trilogy）是我前陣子最喜歡的
+                  左拉的萌芽 (Germinal) - 最近在看的書、非常喜歡
                 </li>
                 <li className="star">
-                  林中密族 (The People in the Trees) 一直還沒看完...
+                  哥本哈根三部曲（The Copenhagen Trilogy）- 前陣子最喜歡的
                 </li>
                 <li className="star">
-                  最近想多讀愛爾蘭文學 - 都柏林人和鄉村女孩三部曲
+                  林中密族 (The People in the Trees) - 只喜歡前70%
                 </li>
               </ul>
             </li>
             <li className="cherryBlossom">
               畫畫與電繪，偶爾會逛Pinterest或插畫家的Insta蒐集新點子
             </li>
-
-            {/* 聊有深度 / 有意義的話題、有效率的解決問題 */}
           </ul>
         </div>
 
